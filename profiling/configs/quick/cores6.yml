@@ -1,0 +1,24 @@
+# Profiling, cores6-quick: Six cores, two-thread split plus six library threads.
+# Copy of quick_test/wheat_winter.yml (rcp45, CCSM4, low, SSP3).
+# Quick mode: one Kansas region (USA.17.906) and only the four montecarlo files, to keep it
+# short. It shows the shape of a run, not final timings.
+# Outputs go to scratch. The jobs pass
+# --outputdir=/scratch/midway3/$USER/agri-profiling/cores6-quick/outputs
+# on the command line, so each user writes to their own scratch.
+# Single mode takes at most two threads: one reads weather and updates
+# covariates, the other computes the impacts. The cores above two only
+# go to the numeric libraries (OpenBLAS, numba).
+# The kit on Midway imports ../../../configs/wheat_winter_pbarspline.yml
+# (hpc-jobs/agriculture/configs/), copied here to configs/base/.
+import: "../base/wheat_winter_pbarspline.yml"
+mode: single
+outputdir: /scratch/midway3/cadavidsanchez/agri-profiling/cores6-quick/outputs
+do_farmers: true
+do_historical: true
+only-rcp: rcp45
+only-models: [CCSM4]
+only-ssp: SSP3
+only-iam: low
+filter-region: USA.17.906
+threads: 2
+socioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/

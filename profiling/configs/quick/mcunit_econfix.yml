@@ -1,0 +1,25 @@
+# Profiling, mcunit_econfix-quick: Same unit as mcunit-quick, run on the
+# econmodel-memory branch of impact-calculations. The job copies the
+# mcunit-quick pvals.yml first, so both draw the same coefficients.
+# Built from quick_test/wheat_winter.yml (rcp45, CCSM4, low, SSP3)
+# with the settings of montecarlo/wheat_winter-rcp85.yml.
+# Quick mode: one Kansas region (USA.17.906) and only the four montecarlo files, to keep it
+# short. For checking the kit only, not for timings.
+# Outputs go to scratch. The jobs pass
+# --outputdir=/scratch/midway3/$USER/agri-profiling/mcunit_econfix-quick/outputs
+# on the command line, so each user writes to their own scratch.
+# The kit on Midway imports ../../../configs/wheat_winter_pbarspline.yml
+# (hpc-jobs/agriculture/configs/), copied here to configs/base/.
+import: "../base/wheat_winter_pbarspline.yml"
+mode: montecarlo
+outputdir: /scratch/midway3/cadavidsanchez/agri-profiling/mcunit_econfix-quick/outputs
+timeout: 12
+do_farmers: true
+do_historical: true
+only-rcp: rcp45
+only-models: [CCSM4]
+only-ssp: SSP3
+only-iam: low
+only-batch-number: 0
+filter-region: USA.17.906
+socioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/

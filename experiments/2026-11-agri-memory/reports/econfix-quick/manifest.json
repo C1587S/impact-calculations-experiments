@@ -1,0 +1,177 @@
+{
+ "run": "econfix-quick",
+ "experiment": "econfix",
+ "quick": true,
+ "profiler": "none",
+ "compare_to": "baseline",
+ "allow_missing": null,
+ "check_exact": false,
+ "config": {
+  "path": "/project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/configs/quick/econfix.yml",
+  "text": "# Profiling, econfix-quick: Same as baseline, run on the econmodel-memory branch of\n# impact-calculations (age shares built on first use, population as one array).\n# Copy of quick_test/wheat_winter.yml (rcp45, CCSM4, low, SSP3).\n# Quick mode: one Kansas region (USA.17.906) and only the four montecarlo files, to keep it\n# short. For checking the kit only, not for timings.\n# Outputs go to scratch. The jobs pass\n# --outputdir=/scratch/midway3/$USER/agri-profiling/econfix-quick/outputs\n# on the command line, so each user writes to their own scratch.\nimport: \"../../../configs/wheat_winter_pbarspline.yml\"\nmode: single\noutputdir: /scratch/midway3/cadavidsanchez/agri-profiling/econfix-quick/outputs\ndo_farmers: true\ndo_historical: true\nonly-rcp: rcp45\nonly-models: [CCSM4]\nonly-ssp: SSP3\nonly-iam: low\nfilter-region: USA.17.906\nsocioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/\n"
+ },
+ "command": "python -m generate.generate /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/configs/quick/econfix.yml --outputdir=/scratch/midway3/cadavidsanchez/agri-profiling/econfix-quick/outputs",
+ "slurm": {
+  "job_id": "63322422",
+  "job_name": "agri-prof-econfix",
+  "job_partition": "cil",
+  "job_account": "cil",
+  "cpus_per_task": "1",
+  "mem_per_node": "32768",
+  "job_nodelist": "midway3-0430",
+  "submit_dir": "/project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs"
+ },
+ "cores": 1,
+ "mem_requested_gb": 32.0,
+ "node": {
+  "hostname": "midway3-0430.rcc.local",
+  "cpu_model": "Intel(R) Xeon(R) Gold 6448Y",
+  "cpus_online": 64,
+  "kernel": "4.18.0-305.3.1.el8.x86_64"
+ },
+ "thread_env": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "NUMEXPR_NUM_THREADS": "1",
+  "NUMBA_NUM_THREADS": "1"
+ },
+ "impact_calculations": {
+  "path": "/project/cil/home_dirs/scadavidsanchez/repos/impact-calculations-econfix",
+  "branch": "econmodel-memory",
+  "sha": "ca9da178378ffbadcb149b9666ddd86c2faa7e02",
+  "short_sha": "ca9da17",
+  "changed_files": [
+   "adaptation/precomputed/new_econmodel.py",
+   "aggregate.sh",
+   "autodoc.sh",
+   "diagnostic.sh",
+   "generate.sh",
+   "generate/seasonal_climategen.py",
+   "shortterm/agrun.sh",
+   "shortterm/mcrun.sh",
+   "shortterm/medrun.sh",
+   "tests/test_system/testdata/test_aggregate_energy/IEA_Price_FIN_Clean_gr014_GLOBAL_COMPILE.dta",
+   "tests/testdata/tas_Bindays_aggregated_historical_r1i1p1_CCSM4_1981.nc",
+   "tests/testdata/tas_aggregated_climatology_1981-2010-new.nc",
+   "tests/testdata/tas_aggregated_forecast_2012-2016Aug.nc",
+   "tests/testdata/tas_day_aggregated_historical_r1i1p1_CCSM4_1981.nc",
+   "tests/testdata/tas_zscores_aggregated_forecast_2012-2016Aug.nc"
+  ]
+ },
+ "python": "3.7.12",
+ "conda_env": "/project/cil/home_dirs/rcc/envs/impact-env",
+ "tools": {
+  "psutil": "7.2.2",
+  "memray": "1.17.2",
+  "pyinstrument": "4.6.2"
+ },
+ "start": "2026-11-17T15:33:20",
+ "end": "2026-11-17T16:04:44",
+ "wall_seconds": 1883.5,
+ "exit_status": 0,
+ "failed": false,
+ "error": null,
+ "outputs": {
+  "dir": "/scratch/midway3/cadavidsanchez/agri-profiling/econfix-quick/outputs",
+  "count": 4,
+  "expected": 4,
+  "files": [
+   {
+    "name": "single/rcp45/CCSM4/low/SSP3/wheat_winter-280823-histclim.nc4",
+    "bytes": 107325
+   },
+   {
+    "name": "single/rcp45/CCSM4/low/SSP3/wheat_winter-280823-incadapt.nc4",
+    "bytes": 107325
+   },
+   {
+    "name": "single/rcp45/CCSM4/low/SSP3/wheat_winter-280823-noadapt.nc4",
+    "bytes": 107287
+   },
+   {
+    "name": "single/rcp45/CCSM4/low/SSP3/wheat_winter-280823.nc4",
+    "bytes": 107325
+   }
+  ]
+ },
+ "telemetry": {
+  "samples": 1881,
+  "seconds": 1883.8,
+  "peak_rss_gb": 5.26,
+  "peak_rss_at_s": 1238.4,
+  "peak_tree_rss_gb": 5.26,
+  "peak_cgroup_gb": 5.25,
+  "peak_cgroup_rss_gb": 5.21,
+  "cgroup_max_usage_gb": 5.39,
+  "mean_cpu_pct": 82.0,
+  "p95_cpu_pct": 98.8,
+  "read_gb": 196.9,
+  "read_disk_gb": 0.0,
+  "max_threads": 1
+ },
+ "stages": {
+  "startup": {
+   "economic models": 184.4,
+   "weather and claim": 3.0
+  },
+  "variants": [
+   {
+    "name": "fulladapt",
+    "seconds": 368.7,
+    "covariates_s": 251.5,
+    "calculation_setup_s": 0.0,
+    "years_s": 117.2
+   },
+   {
+    "name": "noadapt",
+    "seconds": 344.7,
+    "covariates_s": 229.5,
+    "calculation_setup_s": 0.0,
+    "years_s": 115.2
+   },
+   {
+    "name": "incadapt",
+    "seconds": 343.6,
+    "covariates_s": 237.5,
+    "calculation_setup_s": 0.0,
+    "years_s": 106.2
+   },
+   {
+    "name": "histclim",
+    "seconds": 623.4,
+    "covariates_s": 582.2,
+    "calculation_setup_s": 0.0,
+    "years_s": 41.1
+   }
+  ],
+  "totals": {
+   "covariates_s": 1300.7,
+   "calculation_setup_s": 0.0,
+   "years_s": 379.7,
+   "variants_s": 1680.4
+  },
+  "process_time_s": 1541.7252180340001,
+  "error": null
+ },
+ "sstat": {
+  "max_rss_gb": 5.1,
+  "ave_cpu": "25:46.000"
+ },
+ "sacct": {
+  "partition": "cil",
+  "alloc_cpus": 1,
+  "req_mem_gb": 32.0,
+  "max_rss_gb": null,
+  "elapsed": "00:31:41",
+  "elapsed_s": 1901.0,
+  "hours": 0.528,
+  "total_cpu_s": 0.0,
+  "cpu_efficiency": null,
+  "state": "RUNNING",
+  "exit_code": "0:0",
+  "nodelist": "midway3-0430",
+  "final": false,
+  "collected": "2026-11-17T16:04:58"
+ }
+}

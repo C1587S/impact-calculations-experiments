@@ -1,0 +1,24 @@
+# Profiling, mcunit_gccollect_econfix: Same unit as mcunit, run on the
+# econmodel-memory branch of impact-calculations (age shares built on first
+# use, population as one array) with a full garbage collection every minute.
+# The job copies the complete mcunit pvals.yml first, so both use the same
+# coefficients and the same histclim year order.
+# Built from single/wheat_winter-ssp3-rcp85-high.yml (rcp85, CCSM4, high, SSP3)
+# with the settings of montecarlo/wheat_winter-rcp85.yml.
+# Outputs go to scratch. The jobs pass
+# --outputdir=/scratch/midway3/$USER/agri-profiling/mcunit_gccollect_econfix/outputs
+# on the command line, so each user writes to their own scratch.
+# The kit on Midway imports ../../configs/wheat_winter_pbarspline.yml
+# (hpc-jobs/agriculture/configs/), copied here to configs/base/.
+import: "base/wheat_winter_pbarspline.yml"
+mode: montecarlo
+outputdir: /scratch/midway3/cadavidsanchez/agri-profiling/mcunit_gccollect_econfix/outputs
+timeout: 12
+do_farmers: true
+do_historical: true
+only-rcp: rcp85
+only-models: [CCSM4]
+only-ssp: SSP3
+only-iam: high
+only-batch-number: 0
+socioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/

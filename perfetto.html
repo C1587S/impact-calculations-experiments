@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open in Perfetto</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f6f6f4;
+    --surface: #ffffff;
+    --text: #1d1d1b;
+    --muted: #5c5c57;
+    --border: #d9d9d3;
+    --accent: #1a5fb4;
+    --accent-text: #ffffff;
+    --error: #a51d2d;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #161615;
+      --surface: #20201f;
+      --text: #ececea;
+      --muted: #a4a49f;
+      --border: #3b3b38;
+      --accent: #78aeed;
+      --accent-text: #0b1a2e;
+      --error: #f66151;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  main {
+    width: 100%;
+    max-width: 34rem;
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  h1 { margin: 0 0 4px; font-size: 1.25rem; }
+  .trace {
+    margin: 0 0 20px;
+    color: var(--muted);
+    font: 0.875rem/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    overflow-wrap: anywhere;
+  }
+  button {
+    padding: 10px 18px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--accent);
+    color: var(--accent-text);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button:disabled { opacity: 0.5; cursor: default; }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .status { min-height: 1.5em; margin: 16px 0 0; }
+  .status.error { color: var(--error); }
+  .note { margin: 16px 0 0; color: var(--muted); font-size: 0.875rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Open in Perfetto</h1>
+  <p class="trace" id="trace"></p>
+  <button id="open" type="button" disabled>Loading the trace</button>
+  <p class="status" id="status" role="status" aria-live="polite"></p>
+  <p class="note">The trace opens in a new tab. The first time, Perfetto asks whether to trust this site. The trace stays in your browser.</p>
+</main>
+<script>
+  // Fetches a trace from this site and hands it to ui.perfetto.dev with the
+  // postMessage handshake Perfetto documents: open the UI, send PING until it
+  // answers PONG, then send {perfetto: {buffer, title}}.
+  // Usage: perfetto.html?trace=experiments/<name>/reports/<run>/trace.json
+  (function () {
+    "use strict";
+    var PERFETTO = "https://ui.perfetto.dev";
+    var button = document.getElementById("open");
+    var statusLine = document.getElementById("status");
+    var path = new URLSearchParams(window.location.search).get("trace") || "";
+    var parts = path.split("/");
+    // Perfetto shows this title: the run folder, such as baseline-quick.
+    var title = parts.length > 1 ? parts[parts.length - 2] : path;
+    var buffer = null;
+
+    document.getElementById("trace").textContent = path || "No trace given";
+
+    function say(text, isError) {
+      statusLine.textContent = text;
+      statusLine.className = isError ? "status error" : "status";
+    }
+
+    // Only JSON files on this site, given as a relative path.
+    function allowed(p) {
+      return /^[A-Za-z0-9_.\/-]+\.json$/.test(p) &&
+        p.charAt(0) !== "/" &&
+        p.split("/").indexOf("..") === -1;
+    }
+
+    function openInPerfetto() {
+      // Keep the opener: Perfetto only answers the window that opened it.
+      var win = window.open(PERFETTO);
+      if (!win) {
+        say("The browser blocked the new tab. Allow pop-ups for this site and try again.", true);
+        return;
+      }
+      say("Loading trace in Perfetto, this takes about 10 seconds.");
+      var tries = 0;
+      var timer = window.setInterval(function () {
+        tries += 1;
+        if (win.closed || tries > 600) {
+          stop();
+          say(win.closed ? "The Perfetto tab was closed." : "Perfetto did not answer in 60 s. Try again.", true);
+          return;
+        }
+        win.postMessage("PING", PERFETTO);
+      }, 100);
+
+      function stop() {
+        window.clearInterval(timer);
+        window.removeEventListener("message", onMessage);
+      }
+
+      function onMessage(evt) {
+        if (evt.source !== win || evt.origin !== PERFETTO || evt.data !== "PONG") return;
+        stop();
+        win.postMessage({perfetto: {buffer: buffer, title: title}}, PERFETTO);
+        say("Sent to Perfetto.");
+      }
+
+      window.addEventListener("message", onMessage);
+    }
+
+    if (!allowed(path)) {
+      button.textContent = "Open in Perfetto";
+      say("Give a trace on this site, for example ?trace=experiments/<name>/reports/<run>/trace.json", true);
+      return;
+    }
+
+    say("Loading trace, this takes about 10 seconds.");
+    fetch(path)
+      .then(function (response) {
+        if (!response.ok) throw new Error(response.status + " " + response.statusText);
+        return response.arrayBuffer();
+      })
+      .then(function (data) {
+        buffer = data;
+        button.disabled = false;
+        button.textContent = "Open in Perfetto";
+        say((data.byteLength / 1e6).toFixed(1) + " MB loaded.");
+      })
+      .catch(function (err) {
+        button.textContent = "Open in Perfetto";
+        say("Could not load the trace: " + err.message, true);
+      });
+
+    button.addEventListener("click", openInPerfetto);
+  })();
+</script>
+</body>
+</html>

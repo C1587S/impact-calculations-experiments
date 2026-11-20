@@ -1,0 +1,161 @@
+{
+ "run": "mortality-quick",
+ "experiment": "mortality",
+ "quick": true,
+ "profiler": "none",
+ "compare_to": null,
+ "allow_missing": null,
+ "check_exact": false,
+ "config": {
+  "path": "/project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/configs/quick/mortality.yml",
+  "text": "# Profiling, mortality-quick: mortality single on master, the reference for mortality_econfix.\n# Copy of impact-projections-hpc-infra\n# configs/cil2/mortality/single/mortality-single-ssp3-rcp45-low-smoke.yml\n# (rcp45, CCSM4, low, SSP3) with one Kansas region (USA.17.906) and the 1.0.0\n# socioeconomics, to keep it short. Quick mode only.\n# Outputs go to scratch. The jobs pass\n# --outputdir=/scratch/midway3/$USER/agri-profiling/mortality-quick/outputs\n# on the command line, so each user writes to their own scratch.\nmodule: tests.configs.mortality.allmodels\nmode: single\nsingledir: ''\noutputdir: /scratch/midway3/cadavidsanchez/agri-profiling/mortality-quick/outputs\ndo_only: interpolation\ndo_farmers: false\ndo_historical: false\nonly-rcp: rcp45\nonly-models: [CCSM4]\nonly-ssp: SSP3\nonly-iam: low\nfilter-region: USA.17.906\ncsvvfile: /project/cil/home_dirs/egrenier/repos/mortality/2_projection/2_run_projections/main_specification/Agespec_interaction_response.csvv\nspecification: polynomial\nclipping: both\nclip-maxtemp: 30\nderivclip: true\neconcovar:\n   class: bartlett\n   length: 13\nclimcovar:\n   class: bartlett\n   length: 30\nsocioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/\n"
+ },
+ "command": "python -m generate.generate /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/configs/quick/mortality.yml --outputdir=/scratch/midway3/cadavidsanchez/agri-profiling/mortality-quick/outputs",
+ "slurm": {
+  "job_id": "63322423",
+  "job_name": "agri-prof-mortality",
+  "job_partition": "cil",
+  "job_account": "cil",
+  "cpus_per_task": "1",
+  "mem_per_node": "40960",
+  "job_nodelist": "midway3-0430",
+  "submit_dir": "/project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs"
+ },
+ "cores": 1,
+ "mem_requested_gb": 40.0,
+ "node": {
+  "hostname": "midway3-0430.rcc.local",
+  "cpu_model": "Intel(R) Xeon(R) Gold 6448Y",
+  "cpus_online": 64,
+  "kernel": "4.18.0-305.3.1.el8.x86_64"
+ },
+ "thread_env": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "NUMEXPR_NUM_THREADS": "1",
+  "NUMBA_NUM_THREADS": "1"
+ },
+ "impact_calculations": {
+  "path": "/project/cil/home_dirs/scadavidsanchez/repos/impact-calculations",
+  "branch": "master",
+  "sha": "ca9da178378ffbadcb149b9666ddd86c2faa7e02",
+  "short_sha": "ca9da17",
+  "changed_files": [
+   "adaptation/precomputed/new_econmodel.py"
+  ]
+ },
+ "python": "3.7.12",
+ "conda_env": "/project/cil/home_dirs/rcc/envs/impact-env",
+ "tools": {
+  "psutil": "7.2.2",
+  "memray": "1.17.2",
+  "pyinstrument": "4.6.2"
+ },
+ "start": "2026-11-17T15:33:20",
+ "end": "2026-11-17T15:41:58",
+ "wall_seconds": 518.3,
+ "exit_status": 0,
+ "failed": false,
+ "error": null,
+ "outputs": {
+  "dir": "/scratch/midway3/cadavidsanchez/agri-profiling/mortality-quick/outputs",
+  "count": 4,
+  "expected": 1,
+  "files": [
+   {
+    "name": "rcp45/CCSM4/low/SSP3/Agespec_interaction_response-combined.nc4",
+    "bytes": 49888
+   },
+   {
+    "name": "rcp45/CCSM4/low/SSP3/Agespec_interaction_response-older.nc4",
+    "bytes": 52323
+   },
+   {
+    "name": "rcp45/CCSM4/low/SSP3/Agespec_interaction_response-oldest.nc4",
+    "bytes": 52323
+   },
+   {
+    "name": "rcp45/CCSM4/low/SSP3/Agespec_interaction_response-young.nc4",
+    "bytes": 52323
+   }
+  ]
+ },
+ "telemetry": {
+  "samples": 519,
+  "seconds": 519.0,
+  "peak_rss_gb": 10.36,
+  "peak_rss_at_s": 245.4,
+  "peak_tree_rss_gb": 10.37,
+  "peak_cgroup_gb": 10.37,
+  "peak_cgroup_rss_gb": 10.32,
+  "cgroup_max_usage_gb": 10.43,
+  "mean_cpu_pct": 70.3,
+  "p95_cpu_pct": 98.9,
+  "read_gb": 142.6,
+  "read_disk_gb": 0.0,
+  "max_threads": 1
+ },
+ "stages": {
+  "startup": {
+   "economic models": 231.4,
+   "weather and claim": 3.0
+  },
+  "variants": [
+   {
+    "name": "fulladapt",
+    "seconds": 153.2,
+    "covariates_s": 48.1,
+    "calculation_setup_s": 0.0,
+    "years_s": 105.2
+   },
+   {
+    "name": "fulladapt",
+    "seconds": 59.1,
+    "covariates_s": 20.0,
+    "calculation_setup_s": 0.0,
+    "years_s": 39.1
+   },
+   {
+    "name": "fulladapt",
+    "seconds": 49.1,
+    "covariates_s": 16.0,
+    "calculation_setup_s": 0.0,
+    "years_s": 33.1
+   },
+   {
+    "name": "fulladapt",
+    "seconds": 4.0,
+    "covariates_s": 4.0
+   }
+  ],
+  "totals": {
+   "covariates_s": 88.1,
+   "calculation_setup_s": 0.0,
+   "years_s": 177.4,
+   "variants_s": 265.4
+  },
+  "process_time_s": 361.907462301,
+  "error": null
+ },
+ "sstat": {
+  "max_rss_gb": 8.99,
+  "ave_cpu": "06:04.000"
+ },
+ "sacct": {
+  "partition": "cil",
+  "alloc_cpus": 1,
+  "req_mem_gb": 40.0,
+  "max_rss_gb": null,
+  "elapsed": "00:08:52",
+  "elapsed_s": 532.0,
+  "hours": 0.148,
+  "total_cpu_s": 0.0,
+  "cpu_efficiency": null,
+  "state": "RUNNING",
+  "exit_code": "0:0",
+  "nodelist": "midway3-0430",
+  "final": false,
+  "collected": "2026-11-17T15:42:10"
+ }
+}

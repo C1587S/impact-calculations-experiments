@@ -1,0 +1,32 @@
+# Profiling, mortality_econfix-quick: the same mortality single on the econmodel-memory branch.
+# Copy of impact-projections-hpc-infra
+# configs/cil2/mortality/single/mortality-single-ssp3-rcp45-low-smoke.yml
+# (rcp45, CCSM4, low, SSP3) with one Kansas region (USA.17.906) and the 1.0.0
+# socioeconomics, to keep it short. Quick mode only.
+# Outputs go to scratch. The jobs pass
+# --outputdir=/scratch/midway3/$USER/agri-profiling/mortality_econfix-quick/outputs
+# on the command line, so each user writes to their own scratch.
+module: tests.configs.mortality.allmodels
+mode: single
+singledir: ''
+outputdir: /scratch/midway3/cadavidsanchez/agri-profiling/mortality_econfix-quick/outputs
+do_only: interpolation
+do_farmers: false
+do_historical: false
+only-rcp: rcp45
+only-models: [CCSM4]
+only-ssp: SSP3
+only-iam: low
+filter-region: USA.17.906
+csvvfile: /project/cil/home_dirs/egrenier/repos/mortality/2_projection/2_run_projections/main_specification/Agespec_interaction_response.csvv
+specification: polynomial
+clipping: both
+clip-maxtemp: 30
+derivclip: true
+econcovar:
+   class: bartlett
+   length: 13
+climcovar:
+   class: bartlett
+   length: 30
+socioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/

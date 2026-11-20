@@ -1,0 +1,137 @@
+{
+ "master": "/project/cil/home_dirs/scadavidsanchez/repos/impact-calculations",
+ "branch": "/project/cil/home_dirs/scadavidsanchez/repos/impact-calculations-econfix",
+ "ssp": "SSP3",
+ "iam": "high",
+ "checks": {
+  "regions": {
+   "identical": true,
+   "differing_regions": 0,
+   "first": []
+  },
+  "n_regions": {
+   "identical": true,
+   "differing_regions": 0,
+   "first": []
+  },
+  "iso_to_hierids": {
+   "identical": true,
+   "differing_regions": 0,
+   "first": []
+  },
+  "population": {
+   "identical": true,
+   "differing_regions": 0,
+   "first": []
+  },
+  "popop": {
+   "identical": true,
+   "differing_regions": 0,
+   "first": []
+  },
+  "baseline_prepared country=False": {
+   "identical": true,
+   "differing_regions": 0,
+   "first": []
+  },
+  "baseline_prepared country=True": {
+   "identical": true,
+   "differing_regions": 0,
+   "first": []
+  },
+  "has_age_shares": {
+   "identical": true,
+   "differing_regions": 0,
+   "first": []
+  },
+  "age_shares": {
+   "identical": true,
+   "differing_regions": 0,
+   "first": []
+  },
+  "loader_regions": {
+   "identical": true,
+   "differing_regions": 0,
+   "first": []
+  },
+  "loader age0-4": {
+   "identical": true,
+   "differing_regions": 0,
+   "first": []
+  },
+  "loader age5-64": {
+   "identical": true,
+   "differing_regions": 0,
+   "first": []
+  },
+  "loader age65+": {
+   "identical": true,
+   "differing_regions": 0,
+   "first": []
+  }
+ },
+ "status": "pass",
+ "memory": [
+  {
+   "item": "pop_future_years",
+   "master_mb": 256.6,
+   "branch_mb": 28.5,
+   "saved_per_model_mb": 228.1,
+   "saved_ten_models_gb": 2.28
+  },
+  {
+   "item": "_age_shares at start",
+   "master_mb": 572.5,
+   "branch_mb": 0.0,
+   "note": "the branch builds them on first use: 574.1 MB when read",
+   "saved_per_model_mb": 572.5,
+   "saved_ten_models_gb": 5.72
+  },
+  {
+   "item": "whole model after start",
+   "master_mb": 879.4,
+   "branch_mb": 78.8,
+   "saved_per_model_mb": 800.6,
+   "saved_ten_models_gb": 8.01
+  }
+ ],
+ "seconds": {
+  "master_init": 30.2,
+  "branch_init": 20.5,
+  "branch_first_age_shares": 9.7
+ },
+ "process": {
+  "master": {
+   "model_after_init_mb": 879.4,
+   "process_after_init": {
+    "rss_mb": 2521.248,
+    "peak_mb": 3069.5,
+    "tracemalloc_overhead_mb": 926.1
+   },
+   "reading_age_shares_adds_mb": 0.0,
+   "process_after_age_shares": {
+    "rss_mb": 2537.96,
+    "peak_mb": 3069.5,
+    "tracemalloc_overhead_mb": 930.5
+   },
+   "pop_future_years_mb": 256.6,
+   "age_shares_mb": 572.5
+  },
+  "branch": {
+   "model_after_init_mb": 78.8,
+   "process_after_init": {
+    "rss_mb": 463.2,
+    "peak_mb": 1421.188,
+    "tracemalloc_overhead_mb": 15.1
+   },
+   "reading_age_shares_adds_mb": 574.1,
+   "process_after_age_shares": {
+    "rss_mb": 1909.764,
+    "peak_mb": 2486.24,
+    "tracemalloc_overhead_mb": 673.0
+   },
+   "pop_future_years_mb": 28.5,
+   "age_shares_mb": 574.1
+  }
+ }
+}

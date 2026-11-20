@@ -1,0 +1,17 @@
+# Profiling, noglobal: Same as baseline without the global variant and its histclim copy.
+# Copy of single/wheat_winter-ssp3-rcp85-high.yml (rcp85, CCSM4, high, SSP3).
+# Outputs go to scratch. The jobs pass
+# --outputdir=/scratch/midway3/$USER/agri-profiling/noglobal/outputs
+# on the command line, so each user writes to their own scratch.
+# The kit on Midway imports ../../configs/wheat_winter_pbarspline.yml
+# (hpc-jobs/agriculture/configs/), copied here to configs/base/.
+import: "base/wheat_winter_pbarspline.yml"
+mode: single
+outputdir: /scratch/midway3/cadavidsanchez/agri-profiling/noglobal/outputs
+do_farmers: [noadapt, incadapt, histclim-noadapt, histclim-incadapt]
+do_historical: true
+only-rcp: rcp85
+only-models: [CCSM4]
+only-ssp: SSP3
+only-iam: high
+socioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/

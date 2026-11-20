@@ -1,0 +1,17 @@
+# Heavy files from the runs stay on Midway
+*.bin
+*.pyisession
+outputs/
+*.nc
+*.nc4
+samples.csv
+threads.csv
+markers.tsv
+*.log
+
+__pycache__/
+*.pyc
+.DS_Store
+
+# marimo session cache
+__marimo__/
