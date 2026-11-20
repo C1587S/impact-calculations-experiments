@@ -1,0 +1,76 @@
+{
+ "experiments/2026-11-agri-memory/reports/baseline-quick": [
+  "manifest.json",
+  "trace.json"
+ ],
+ "experiments/2026-11-agri-memory/reports/cores2-quick": [
+  "check.json",
+  "manifest.json",
+  "trace.json"
+ ],
+ "experiments/2026-11-agri-memory/reports/econfix-quick": [
+  "check.json",
+  "manifest.json",
+  "trace.json"
+ ],
+ "experiments/2026-11-agri-memory/reports/memray-quick": [
+  "check.json",
+  "manifest.json",
+  "trace.json"
+ ],
+ "experiments/2026-11-agri-memory/reports/mortality-quick": [
+  "manifest.json",
+  "trace.json"
+ ],
+ "experiments/2026-11-agri-memory/reports/mortality_econfix-quick": [
+  "check.json",
+  "manifest.json",
+  "trace.json"
+ ],
+ "experiments/2026-11-agri-memory/reports/oneecon-quick": [
+  "check.json",
+  "manifest.json",
+  "trace.json"
+ ],
+ "experiments/2026-11-agri-memory/reports/pyinstrument-quick": [
+  "check.json",
+  "manifest.json",
+  "trace.json"
+ ],
+ "experiments/2026-11-agri-memory-full/reports/baseline": [
+  "manifest.json",
+  "trace.json"
+ ],
+ "experiments/2026-11-agri-memory-full/reports/econfix": [
+  "check.json",
+  "manifest.json",
+  "trace.json"
+ ],
+ "experiments/2026-11-agri-memory-full/reports/mcunit": [
+  "manifest.json",
+  "trace.json"
+ ],
+ "experiments/2026-11-agri-memory-full/reports/mcunit_econfix": [
+  "check.json",
+  "manifest.json",
+  "trace.json"
+ ],
+ "experiments/2026-11-agri-memory-gc/reports/gccollect": [
+  "check.json",
+  "gc.csv",
+  "manifest.json",
+  "trace.json"
+ ],
+ "experiments/2026-11-agri-memory-gc/reports/gccollect_econfix": [
+  "check.json",
+  "gc.csv",
+  "manifest.json",
+  "trace.json"
+ ],
+ "experiments/2026-11-agri-memory-gc/reports/mcunit_gccollect_econfix": [
+  "check.json",
+  "gc.csv",
+  "manifest.json",
+  "trace.json"
+ ]
+}
