@@ -1,0 +1,20 @@
+# Profiling, labor: the labor single on master,
+# the reference for labor_gccollect_econfix.
+# Copy of labor/configs/single/ssp3-rcp85-high.yml (rcp85, CCSM4, high, SSP3)
+# in /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-labor/hpc-jobs/,
+# the config of job 60794948, task 9. configs/base/uninteracted_main_model.yml
+# is a copy of the labor model config in the same configs/ folder.
+# Outputs go to scratch. The jobs pass
+# --outputdir=/scratch/midway3/$USER/agri-profiling/labor/outputs
+# on the command line, so each user writes to their own scratch.
+import: "base/uninteracted_main_model.yml"
+mode: single
+singledir: ''
+outputdir: /scratch/midway3/cadavidsanchez/agri-profiling/labor/outputs
+do_farmers: true
+do_historical: true
+only-rcp: rcp85
+only-models: [CCSM4]
+only-ssp: SSP3
+only-iam: high
+socioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/

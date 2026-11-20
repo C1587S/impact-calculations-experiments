@@ -4,7 +4,9 @@ Each file present in both runs is opened with xarray and every data variable
 is checked with xarray.testing.assert_allclose, or with assert_equal (same
 values, NaN where the reference has NaN) when --exact is given. Files are
 matched by name, so single and montecarlo folder layouts both work (one unit
-per run). Writes check.json and exits with 1 if anything differs.
+per run). When a run has several units, names repeat across their folders, so
+files are matched by their path below the outputs folder instead. Writes
+check.json and exits with 1 if anything differs.
 """
 
 import argparse
@@ -18,12 +20,14 @@ import numpy as np
 import xarray as xr
 
 
-def nc4_files(folder):
-    """Map file name to path for the projection outputs under a folder.
+def nc4_files(folder, by_path=False):
+    """Map file name, or path below the folder, to path for the projection outputs.
 
     Parameters
     ----------
     folder : str
+    by_path : bool
+        Key by the path below the folder instead of the file name.
 
     Returns
     -------
@@ -33,8 +37,23 @@ def nc4_files(folder):
     for path in glob.glob(os.path.join(folder, "**", "*.nc4"), recursive=True):
         if path.endswith("-aggregated.nc4"):
             continue
-        found[os.path.basename(path)] = path
+        found[os.path.relpath(path, folder) if by_path else os.path.basename(path)] = path
     return found
+
+
+def repeats(folder):
+    """True when two output files under the folder share a name (several units).
+
+    Parameters
+    ----------
+    folder : str
+
+    Returns
+    -------
+    bool
+    """
+    names = [os.path.basename(p) for p in glob.glob(os.path.join(folder, "**", "*.nc4"), recursive=True)]
+    return len(names) != len(set(names))
 
 
 def compare_var(cand, base, rtol, atol, exact=False):
@@ -91,13 +110,16 @@ def main():
     parser.add_argument("--allow-missing", default="",
                         help="regex of reference files the candidate may lack, e.g. global")
     parser.add_argument("--exact", action="store_true", help="require equal values (assert_equal)")
+    parser.add_argument("--label", help="record this as the reference instead of its path, e.g. 'master, job 63433857'")
     args = parser.parse_args()
 
-    result = dict(candidate=args.candidate, baseline=args.baseline, rtol=args.rtol, atol=args.atol,
+    result = dict(candidate=args.candidate, baseline=args.label or args.baseline, rtol=args.rtol, atol=args.atol,
                   exact=args.exact, status="skipped", files=[], missing_in_candidate=[],
                   extra_in_candidate=[])
-    cand_files = nc4_files(args.candidate)
-    base_files = nc4_files(args.baseline)
+    by_path = repeats(args.candidate) or repeats(args.baseline)
+    result["matched_by"] = "path" if by_path else "name"
+    cand_files = nc4_files(args.candidate, by_path)
+    base_files = nc4_files(args.baseline, by_path)
     if not base_files:
         result["reason"] = "no reference outputs yet"
     elif not cand_files:

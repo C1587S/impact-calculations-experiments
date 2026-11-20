@@ -1,0 +1,218 @@
+{
+ "run": "sorghum_gccollect_econfix",
+ "experiment": "sorghum_gccollect_econfix",
+ "quick": false,
+ "profiler": "gc",
+ "compare_to": null,
+ "allow_missing": null,
+ "check_exact": false,
+ "config": {
+  "path": "/project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/configs/sorghum_gccollect_econfix.yml",
+  "text": "# Profiling, sorghum_gccollect_econfix: the sorghum single on the econmodel-memory branch of\n# impact-calculations, with a full garbage collection every minute.\n# Copy of single/sorghum-ssp3-rcp85-high.yml (rcp85, CCSM4, high, SSP3).\n# Outputs go to scratch. The jobs pass\n# --outputdir=/scratch/midway3/$USER/agri-profiling/sorghum_gccollect_econfix/outputs\n# on the command line, so each user writes to their own scratch.\nimport: \"../../configs/sorghum-160221.yml\"\nmode: single\noutputdir: /scratch/midway3/cadavidsanchez/agri-profiling/sorghum_gccollect_econfix/outputs\ndo_farmers: 'always'\ndo_historical: true\nonly-rcp: rcp85\nonly-models: [CCSM4]\nonly-ssp: SSP3\nonly-iam: high\nsocioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/\n"
+ },
+ "command": "python /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/tools/gc_capture.py --interval 60 --log /scratch/midway3/cadavidsanchez/agri-profiling/sorghum_gccollect_econfix/gc.csv -m generate.generate /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/configs/sorghum_gccollect_econfix.yml --outputdir=/scratch/midway3/cadavidsanchez/agri-profiling/sorghum_gccollect_econfix/outputs",
+ "slurm": {
+  "job_id": "63567897",
+  "job_name": "agri-prof-sorghum_gccollect_econfix",
+  "job_partition": "cil",
+  "job_account": "cil",
+  "cpus_per_task": "1",
+  "mem_per_node": "12288",
+  "job_nodelist": "midway3-0431",
+  "submit_dir": "/project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs"
+ },
+ "cores": 1,
+ "mem_requested_gb": 12.0,
+ "node": {
+  "hostname": "midway3-0431.rcc.local",
+  "cpu_model": "Intel(R) Xeon(R) Gold 6448Y",
+  "cpus_online": 64,
+  "kernel": "4.18.0-305.3.1.el8.x86_64"
+ },
+ "thread_env": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "NUMEXPR_NUM_THREADS": "1",
+  "NUMBA_NUM_THREADS": "1"
+ },
+ "impact_calculations": {
+  "path": "/project/cil/home_dirs/scadavidsanchez/repos/impact-calculations-econfix",
+  "branch": "econmodel-memory",
+  "sha": "61d2f28af62c52e8431a41c517b486ee23c1f1a2",
+  "short_sha": "61d2f28",
+  "changed_files": [
+   "adaptation/precomputed/new_econmodel.py"
+  ]
+ },
+ "python": "3.7.12",
+ "conda_env": "/project/cil/home_dirs/rcc/envs/impact-env",
+ "tools": {
+  "psutil": "7.2.2",
+  "memray": "1.17.2",
+  "pyinstrument": "4.6.2"
+ },
+ "start": "2026-11-20T02:15:02",
+ "end": "2026-11-20T04:59:24",
+ "wall_seconds": 9861.6,
+ "exit_status": 0,
+ "failed": false,
+ "error": null,
+ "outputs": {
+  "dir": "/scratch/midway3/cadavidsanchez/agri-profiling/sorghum_gccollect_econfix/outputs",
+  "count": 8,
+  "expected": 8,
+  "files": [
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/sorghum-160221-global-histclim.nc4",
+    "bytes": 36163582
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/sorghum-160221-global.nc4",
+    "bytes": 36163582
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/sorghum-160221-histclim.nc4",
+    "bytes": 36163582
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/sorghum-160221-incadapt-histclim.nc4",
+    "bytes": 36163582
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/sorghum-160221-incadapt.nc4",
+    "bytes": 36163582
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/sorghum-160221-noadapt-histclim.nc4",
+    "bytes": 36163582
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/sorghum-160221-noadapt.nc4",
+    "bytes": 36163582
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/sorghum-160221.nc4",
+    "bytes": 36163582
+   }
+  ]
+ },
+ "telemetry": {
+  "samples": 9845,
+  "seconds": 9861.5,
+  "peak_rss_gb": 3.87,
+  "peak_rss_at_s": 7499.3,
+  "peak_tree_rss_gb": 3.87,
+  "peak_cgroup_gb": 3.85,
+  "peak_cgroup_rss_gb": 3.83,
+  "cgroup_max_usage_gb": 3.9,
+  "mean_cpu_pct": 97.7,
+  "p95_cpu_pct": 98.9,
+  "read_gb": 196.0,
+  "read_disk_gb": 0.0,
+  "max_threads": 1
+ },
+ "stages": {
+  "startup": {
+   "economic models": 188.3,
+   "weather and claim": 1.0
+  },
+  "variants": [
+   {
+    "name": "fulladapt",
+    "seconds": 1480.8,
+    "covariates_s": 204.4,
+    "calculation_setup_s": 7.0,
+    "years_s": 1269.4
+   },
+   {
+    "name": "noadapt",
+    "seconds": 882.5,
+    "covariates_s": 198.4,
+    "calculation_setup_s": 8.0,
+    "years_s": 676.2
+   },
+   {
+    "name": "incadapt",
+    "seconds": 1410.4,
+    "covariates_s": 197.4,
+    "calculation_setup_s": 7.0,
+    "years_s": 1206.0
+   },
+   {
+    "name": "global",
+    "seconds": 878.5,
+    "covariates_s": 195.4,
+    "calculation_setup_s": 8.0,
+    "years_s": 675.1
+   },
+   {
+    "name": "histclim",
+    "seconds": 1569.8,
+    "covariates_s": 297.5,
+    "calculation_setup_s": 8.0,
+    "years_s": 1264.2
+   },
+   {
+    "name": "noadapt-histclim",
+    "seconds": 973.8,
+    "covariates_s": 297.6,
+    "calculation_setup_s": 8.0,
+    "years_s": 668.2
+   },
+   {
+    "name": "incadapt-histclim",
+    "seconds": 1486.6,
+    "covariates_s": 295.5,
+    "calculation_setup_s": 8.0,
+    "years_s": 1183.1
+   },
+   {
+    "name": "global-histclim",
+    "seconds": 973.8,
+    "covariates_s": 297.5,
+    "calculation_setup_s": 9.0,
+    "years_s": 667.3
+   }
+  ],
+  "totals": {
+   "covariates_s": 1983.7,
+   "calculation_setup_s": 63.0,
+   "years_s": 7609.5,
+   "variants_s": 9656.2
+  },
+  "units": [
+   {
+    "unit": 1,
+    "name": "CCSM4",
+    "seconds": 9656.2,
+    "start_h": 0.057,
+    "rss_at_start_gb": 1.1,
+    "peak_rss_gb": 3.87,
+    "peak_cgroup_gb": 3.85
+   }
+  ],
+  "process_time_s": 9630.451032852,
+  "error": null
+ },
+ "sstat": {
+  "max_rss_gb": 3.73,
+  "ave_cpu": "02:42:38"
+ },
+ "sacct": {
+  "partition": "cil",
+  "alloc_cpus": 1,
+  "req_mem_gb": 12.0,
+  "max_rss_gb": null,
+  "elapsed": "02:44:30",
+  "elapsed_s": 9870.0,
+  "hours": 2.742,
+  "total_cpu_s": 0.0,
+  "cpu_efficiency": null,
+  "state": "RUNNING",
+  "exit_code": "0:0",
+  "nodelist": "midway3-0431",
+  "final": false,
+  "collected": "2026-11-20T04:59:28"
+ }
+}

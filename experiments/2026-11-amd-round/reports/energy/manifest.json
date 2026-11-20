@@ -1,0 +1,218 @@
+{
+ "run": "energy",
+ "experiment": "energy",
+ "quick": false,
+ "profiler": "none",
+ "compare_to": null,
+ "allow_missing": null,
+ "check_exact": false,
+ "config": {
+  "path": "/project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/configs/energy.yml",
+  "text": "# Profiling, energy: the other_energy single on master,\n# the reference for energy_gccollect_econfix.\n# Copy of energy/configs/single/other_energy-ssp3-rcp85-high.yml (rcp85,\n# CCSM4, high, SSP3) in\n# /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-energy/hpc-jobs/,\n# the config of job 61798435, task 19.\n# configs/base/hddcddspline_OTHERIND_other_energy.yml is a copy of the energy\n# model config in the same configs/ folder.\n# Outputs go to scratch. The jobs pass\n# --outputdir=/scratch/midway3/$USER/agri-profiling/energy/outputs\n# on the command line, so each user writes to their own scratch.\nimport: \"base/hddcddspline_OTHERIND_other_energy.yml\"\nmode: single\noutputdir: /scratch/midway3/cadavidsanchez/agri-profiling/energy/outputs\ndeltamethod: no\ndo_farmers: 'always'\ndo_historical: true\nonly-rcp: rcp85\nonly-models: [CCSM4]\nonly-ssp: SSP3\nonly-iam: high\neconcovar:\n   class: mean\n   length: 15\nclimcovar:\n   class: mean\n   length: 30\nloggdppc-delta: 7.713\nsocioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/\n"
+ },
+ "command": "python -m generate.generate /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/configs/energy.yml --outputdir=/scratch/midway3/cadavidsanchez/agri-profiling/energy/outputs",
+ "slurm": {
+  "job_id": "63567906",
+  "job_name": "agri-prof-energy",
+  "job_partition": "amd",
+  "job_account": "cil",
+  "cpus_per_task": "1",
+  "mem_per_node": "16384",
+  "job_nodelist": "midway3-0536",
+  "submit_dir": "/project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs"
+ },
+ "cores": 1,
+ "mem_requested_gb": 16.0,
+ "node": {
+  "hostname": "midway3-0536.rcc.local",
+  "cpu_model": "AMD EPYC 7702 64-Core Processor",
+  "cpus_online": 128,
+  "kernel": "4.18.0-305.3.1.el8.x86_64"
+ },
+ "thread_env": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "NUMEXPR_NUM_THREADS": "1",
+  "NUMBA_NUM_THREADS": "1"
+ },
+ "impact_calculations": {
+  "path": "/project/cil/home_dirs/scadavidsanchez/repos/impact-calculations",
+  "branch": "master",
+  "sha": "ca9da178378ffbadcb149b9666ddd86c2faa7e02",
+  "short_sha": "ca9da17",
+  "changed_files": [
+   "adaptation/precomputed/new_econmodel.py"
+  ]
+ },
+ "python": "3.7.12",
+ "conda_env": "/project/cil/home_dirs/rcc/envs/impact-env",
+ "tools": {
+  "psutil": "7.2.2",
+  "memray": "1.17.2",
+  "pyinstrument": "4.6.2"
+ },
+ "start": "2026-11-20T01:57:05",
+ "end": "2026-11-20T08:57:16",
+ "wall_seconds": 25211.5,
+ "exit_status": 0,
+ "failed": false,
+ "error": null,
+ "outputs": {
+  "dir": "/scratch/midway3/cadavidsanchez/agri-profiling/energy/outputs",
+  "count": 8,
+  "expected": 8,
+  "files": [
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/FD_FGLS_inter_OTHERIND_other_energy_TINV_clim-global-histclim.nc4",
+    "bytes": 13328654
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/FD_FGLS_inter_OTHERIND_other_energy_TINV_clim-global.nc4",
+    "bytes": 13328654
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/FD_FGLS_inter_OTHERIND_other_energy_TINV_clim-histclim.nc4",
+    "bytes": 13328654
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/FD_FGLS_inter_OTHERIND_other_energy_TINV_clim-incadapt-histclim.nc4",
+    "bytes": 13328654
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/FD_FGLS_inter_OTHERIND_other_energy_TINV_clim-incadapt.nc4",
+    "bytes": 13328654
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/FD_FGLS_inter_OTHERIND_other_energy_TINV_clim-noadapt-histclim.nc4",
+    "bytes": 13328654
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/FD_FGLS_inter_OTHERIND_other_energy_TINV_clim-noadapt.nc4",
+    "bytes": 13328654
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/FD_FGLS_inter_OTHERIND_other_energy_TINV_clim.nc4",
+    "bytes": 13328654
+   }
+  ]
+ },
+ "telemetry": {
+  "samples": 25181,
+  "seconds": 25213.0,
+  "peak_rss_gb": 10.42,
+  "peak_rss_at_s": 252.5,
+  "peak_tree_rss_gb": 10.43,
+  "peak_cgroup_gb": 10.43,
+  "peak_cgroup_rss_gb": 10.38,
+  "cgroup_max_usage_gb": 10.43,
+  "mean_cpu_pct": 95.4,
+  "p95_cpu_pct": 97.9,
+  "read_gb": 196.9,
+  "read_disk_gb": 0.0,
+  "max_threads": 1
+ },
+ "stages": {
+  "startup": {
+   "economic models": 238.5,
+   "weather and claim": 4.0
+  },
+  "variants": [
+   {
+    "name": "fulladapt",
+    "seconds": 4831.7,
+    "covariates_s": 227.4,
+    "calculation_setup_s": 7.0,
+    "years_s": 4597.4
+   },
+   {
+    "name": "noadapt",
+    "seconds": 1523.9,
+    "covariates_s": 226.3,
+    "calculation_setup_s": 9.0,
+    "years_s": 1288.6
+   },
+   {
+    "name": "incadapt",
+    "seconds": 4671.8,
+    "covariates_s": 210.3,
+    "calculation_setup_s": 9.0,
+    "years_s": 4452.4
+   },
+   {
+    "name": "global",
+    "seconds": 1526.9,
+    "covariates_s": 220.3,
+    "calculation_setup_s": 9.0,
+    "years_s": 1297.6
+   },
+   {
+    "name": "histclim",
+    "seconds": 4798.7,
+    "covariates_s": 212.3,
+    "calculation_setup_s": 8.0,
+    "years_s": 4578.5
+   },
+   {
+    "name": "noadapt-histclim",
+    "seconds": 1505.9,
+    "covariates_s": 213.2,
+    "calculation_setup_s": 10.0,
+    "years_s": 1282.7
+   },
+   {
+    "name": "incadapt-histclim",
+    "seconds": 4629.6,
+    "covariates_s": 209.2,
+    "calculation_setup_s": 10.0,
+    "years_s": 4410.3
+   },
+   {
+    "name": "global-histclim",
+    "seconds": 1460.9,
+    "covariates_s": 212.3,
+    "calculation_setup_s": 10.0,
+    "years_s": 1238.6
+   }
+  ],
+  "totals": {
+   "covariates_s": 1731.3,
+   "calculation_setup_s": 72.0,
+   "years_s": 23146.1,
+   "variants_s": 24949.4
+  },
+  "units": [
+   {
+    "unit": 1,
+    "name": "CCSM4",
+    "seconds": 24949.5,
+    "start_h": 0.072,
+    "rss_at_start_gb": 4.47,
+    "peak_rss_gb": 5.72,
+    "peak_cgroup_gb": 5.74
+   }
+  ],
+  "process_time_s": 24039.015455208,
+  "error": null
+ },
+ "sstat": {
+  "max_rss_gb": 9.66,
+  "ave_cpu": "06:52:10"
+ },
+ "sacct": {
+  "partition": "amd",
+  "alloc_cpus": 1,
+  "req_mem_gb": 16.0,
+  "max_rss_gb": null,
+  "elapsed": "07:00:30",
+  "elapsed_s": 25230.0,
+  "hours": 7.008,
+  "total_cpu_s": 0.0,
+  "cpu_efficiency": null,
+  "state": "RUNNING",
+  "exit_code": "0:0",
+  "nodelist": "midway3-0536",
+  "final": false,
+  "collected": "2026-11-20T08:57:30"
+ }
+}

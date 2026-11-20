@@ -15,10 +15,16 @@ MARKER_RE = re.compile(
     r"^(Initializing\.\.\.|Loading models\.\.\.|Loading weather\.\.\.|REDO: |Full Adaptation"
     r"|Limited adaptation: |Collecting baseline information|baseline$|Creating calculations"
     r"|Processing years|Push \d{4}|Historical$|Process Time:|Setting up parallel"
-    r"|an unknown error occurred|Traceback|ERROR)"
+    r"|an unknown error occurred|Traceback|ERROR"
+    r"|/\S*/rcp\d+/[^/\s]+/[^/\s]+/SSP\d/?$)"
 )
 
-REDO_RE = re.compile(r"^REDO: Cannot find (.+?)\.nc4\s*$")
+# The output folder the projection prints when it starts a unit, as in
+# .../batch0/rcp85/CCSM4/high/SSP3 (one per unit, so one in a single).
+TARGET_RE = re.compile(r"^/\S*/(rcp\d+)/([^/\s]+)/([^/\s]+)/(SSP\d)/?$")
+
+# Mortality adds the suffix after the path, as in "...-young-histclim.nc4 -histclim".
+REDO_RE = re.compile(r"^REDO: Cannot find (.+?)\.nc4(\s.*)?$")
 PUSH_RE = re.compile(r"^Push (\d{4})")
 PROCESS_TIME_RE = re.compile(r"^Process Time: ([0-9.]+)")
 ERROR_RE = re.compile(r"an unknown error occurred|^Traceback|^ERROR")
@@ -88,8 +94,16 @@ def read_markers(path):
     return markers
 
 
+VARIANT_PARTS = ("noadapt", "incadapt", "global", "histclim")
+AGE_GROUPS = ("young", "older", "oldest", "combined")
+
+
 def variant_name(nc4_base):
-    """Name a variant from its output file, e.g. wheat_winter-280823-noadapt-histclim.
+    """Name a variant from its output file.
+
+    wheat_winter-280823-noadapt-histclim gives noadapt-histclim, a file with
+    no variant part gives fulladapt, and mortality's
+    Agespec_interaction_response-young-noadapt gives young noadapt.
 
     Parameters
     ----------
@@ -101,9 +115,14 @@ def variant_name(nc4_base):
     str
     """
     parts = os.path.basename(nc4_base).split("-")
-    # The first two parts are the CSVV name, like wheat_winter-280823.
-    rest = "-".join(parts[2:])
-    return rest if rest else "fulladapt"
+    # Read from the end, since CSVV names may hold dashes (wheat_winter-280823) or not.
+    tail = []
+    while len(parts) > 1 and parts[-1] in VARIANT_PARTS:
+        tail.insert(0, parts.pop())
+    name = "-".join(tail) if tail else "fulladapt"
+    if len(parts) > 1 and parts[-1] in AGE_GROUPS:
+        name = parts[-1] + " " + name
+    return name
 
 
 def build_stages(markers, t_end=None):
@@ -118,24 +137,31 @@ def build_stages(markers, t_end=None):
     Returns
     -------
     dict
-        slices: list of dicts (name, start, end, depth); instants: list of
+        slices: list of dicts (name, start, end, depth); units: list of
+        dicts (name, start, end), one per output folder; instants: list of
         (time, name); years: list of (time, year); process_time: float or
-        None; error: first error line or None.
+        None (the last one); error: first error line or None.
     """
     slices = []
+    units = []
     instants = []
     years = []
     process_time = None
     error = None
     if not markers:
-        return dict(slices=slices, instants=instants, years=years, process_time=None, error=None)
+        return dict(slices=slices, units=units, instants=instants, years=years, process_time=None, error=None)
 
     if t_end is None:
         t_end = markers[-1][0]
 
     t_init = None
     t_weather = None
+    claimed = False  # the startup ends at the first output file, not at each unit's
     variant = None  # open variant: dict(name, start, sub=[(name, start)])
+
+    def close_unit(t):
+        if units and units[-1]["end"] is None:
+            units[-1]["end"] = t
 
     def close_variant(t):
         if variant is None:
@@ -153,10 +179,16 @@ def build_stages(markers, t_end=None):
             t_weather = t
             if t_init is not None:
                 slices.append(dict(name="startup: economic models", start=t_init, end=t, depth=0))
+        m = TARGET_RE.match(line)
+        if m:
+            close_unit(t)
+            units.append(dict(name=m.group(2), start=t, end=None))
+            continue
         m = REDO_RE.match(line)
         if m:
-            if variant is None and t_weather is not None:
+            if not claimed and t_weather is not None:
                 slices.append(dict(name="startup: weather and claim", start=t_weather, end=t, depth=0))
+            claimed = True
             close_variant(t)
             variant = dict(name=variant_name(m.group(1)), start=t, sub=[("covariates", t)])
             continue
@@ -176,6 +208,7 @@ def build_stages(markers, t_end=None):
         if m:
             process_time = float(m.group(1))
             close_variant(t)
+            close_unit(t)
             variant = None
             continue
         if ERROR_RE.search(line):
@@ -184,7 +217,45 @@ def build_stages(markers, t_end=None):
                 error = line
 
     close_variant(t_end)
-    return dict(slices=slices, instants=instants, years=years, process_time=process_time, error=error)
+    close_unit(t_end)
+    return dict(slices=slices, units=units, instants=instants, years=years, process_time=process_time,
+                error=error)
+
+
+def unit_memory(stages, samples):
+    """Time and memory of each unit: at its start, and its peaks.
+
+    A montecarlo job that runs several units in one process shows here
+    whether memory builds up from one unit to the next.
+
+    Parameters
+    ----------
+    stages : dict
+        Output of build_stages.
+    samples : list of dict
+        Output of read_samples.
+
+    Returns
+    -------
+    list of dict
+    """
+    t0 = samples[0]["t"] if samples else None
+    out = []
+    for ii, u in enumerate(stages.get("units", [])):
+        rows = [r for r in samples if u["start"] <= r["t"] < u["end"]]
+
+        def gib(row, key):
+            return round(row[key] / GB, 2) if row and row.get(key) is not None else None
+
+        def peak(key):
+            vals = [r[key] for r in rows if r.get(key) is not None]
+            return round(max(vals) / GB, 2) if vals else None
+
+        out.append(dict(unit=ii + 1, name=u["name"], seconds=round(u["end"] - u["start"], 1),
+                        start_h=round((u["start"] - t0) / 3600.0, 3) if t0 is not None else None,
+                        rss_at_start_gb=gib(rows[0] if rows else None, "rss_main"),
+                        peak_rss_gb=peak("rss_main"), peak_cgroup_gb=peak("cg_usage")))
+    return out
 
 
 def stage_summary(stages):
@@ -213,6 +284,8 @@ def stage_summary(stages):
             key = s["name"].replace(" ", "_") + "_s"
             out["totals"][key] = round(out["totals"].get(key, 0) + seconds, 1)
     out["totals"]["variants_s"] = round(sum(v["seconds"] for v in out["variants"]), 1)
+    out["units"] = [dict(unit=ii + 1, name=u["name"], seconds=round(u["end"] - u["start"], 1))
+                    for ii, u in enumerate(stages.get("units", []))]
     out["process_time_s"] = stages["process_time"]
     out["error"] = stages["error"]
     return out

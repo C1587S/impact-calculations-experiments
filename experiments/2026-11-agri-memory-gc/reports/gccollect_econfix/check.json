@@ -1,6 +1,6 @@
 {
  "candidate": "/scratch/midway3/cadavidsanchez/agri-profiling/gccollect_econfix/outputs",
- "baseline": "/scratch/midway3/cadavidsanchez/agri-profiling/econfix/outputs",
+ "baseline": "/project/cil/gcp/outputs_newsocioeconomics/agriculture/wheat_winter/single/rcp85/CCSM4/high/SSP3",
  "rtol": 1e-05,
  "atol": 1e-08,
  "exact": false,
@@ -88,8 +88,8 @@
     "rebased": {
      "ok": true,
      "nan_mismatch": 0,
-     "max_abs_diff": 0.0,
-     "max_rel_diff": 0.0
+     "max_abs_diff": 7.105427357601002e-15,
+     "max_rel_diff": 8.093744991995287e-08
     },
     "response": {
      "ok": true,
@@ -118,14 +118,14 @@
     "response2222": {
      "ok": true,
      "nan_mismatch": 0,
-     "max_abs_diff": 0.0,
-     "max_rel_diff": 0.0
+     "max_abs_diff": 4.656612873077393e-10,
+     "max_rel_diff": 6.669189398709885e-08
     },
     "response22222": {
      "ok": true,
      "nan_mismatch": 0,
-     "max_abs_diff": 0.0,
-     "max_rel_diff": 0.0
+     "max_abs_diff": 9.313225746154785e-10,
+     "max_rel_diff": 7.57638836748605e-08
     },
     "response222222": {
      "ok": true,
@@ -160,8 +160,8 @@
     "rebased": {
      "ok": true,
      "nan_mismatch": 0,
-     "max_abs_diff": 0.0,
-     "max_rel_diff": 0.0
+     "max_abs_diff": 7.450580596923828e-09,
+     "max_rel_diff": 8.903618243478167e-08
     },
     "response": {
      "ok": true,
@@ -190,8 +190,8 @@
     "response2222": {
      "ok": true,
      "nan_mismatch": 0,
-     "max_abs_diff": 0.0,
-     "max_rel_diff": 0.0
+     "max_abs_diff": 3.725290298461914e-09,
+     "max_rel_diff": 1.0013112170387122e-07
     },
     "response22222": {
      "ok": true,
@@ -232,20 +232,20 @@
     "rebased": {
      "ok": true,
      "nan_mismatch": 0,
-     "max_abs_diff": 0.0,
-     "max_rel_diff": 0.0
+     "max_abs_diff": 5.820766091346741e-11,
+     "max_rel_diff": 9.115051547895266e-08
     },
     "response": {
      "ok": true,
      "nan_mismatch": 0,
-     "max_abs_diff": 0.0,
-     "max_rel_diff": 0.0
+     "max_abs_diff": 5.820766091346741e-11,
+     "max_rel_diff": 8.281239506116813e-08
     },
     "response2": {
      "ok": true,
      "nan_mismatch": 0,
-     "max_abs_diff": 0.0,
-     "max_rel_diff": 0.0
+     "max_abs_diff": 5.820766091346741e-11,
+     "max_rel_diff": 8.234956484431197e-08
     },
     "response22": {
      "ok": true,
@@ -334,8 +334,8 @@
     "response2222": {
      "ok": true,
      "nan_mismatch": 0,
-     "max_abs_diff": 0.0,
-     "max_rel_diff": 0.0
+     "max_abs_diff": 1.862645149230957e-09,
+     "max_rel_diff": 6.177635563115883e-08
     },
     "response22222": {
      "ok": true,
@@ -448,8 +448,8 @@
     "rebased": {
      "ok": true,
      "nan_mismatch": 0,
-     "max_abs_diff": 0.0,
-     "max_rel_diff": 0.0
+     "max_abs_diff": 5.684341886080802e-14,
+     "max_rel_diff": 7.012008555491879e-08
     },
     "response": {
      "ok": true,
@@ -472,14 +472,14 @@
     "response222": {
      "ok": true,
      "nan_mismatch": 0,
-     "max_abs_diff": 0.0,
-     "max_rel_diff": 0.0
+     "max_abs_diff": 9.094947017729282e-13,
+     "max_rel_diff": 8.848548161187631e-08
     },
     "response2222": {
      "ok": true,
      "nan_mismatch": 0,
-     "max_abs_diff": 0.0,
-     "max_rel_diff": 0.0
+     "max_abs_diff": 1.862645149230957e-09,
+     "max_rel_diff": 6.177635563115883e-08
     },
     "response22222": {
      "ok": true,
@@ -520,8 +520,8 @@
     "rebased": {
      "ok": true,
      "nan_mismatch": 0,
-     "max_abs_diff": 0.0,
-     "max_rel_diff": 0.0
+     "max_abs_diff": 9.313225746154785e-10,
+     "max_rel_diff": 6.966652099397126e-08
     },
     "response": {
      "ok": true,
@@ -544,14 +544,14 @@
     "response222": {
      "ok": true,
      "nan_mismatch": 0,
-     "max_abs_diff": 0.0,
-     "max_rel_diff": 0.0
+     "max_abs_diff": 5.684341886080802e-14,
+     "max_rel_diff": 5.961283845934196e-08
     },
     "response2222": {
      "ok": true,
      "nan_mismatch": 0,
-     "max_abs_diff": 0.0,
-     "max_rel_diff": 0.0
+     "max_abs_diff": 1.862645149230957e-09,
+     "max_rel_diff": 6.177635563115883e-08
     },
     "response22222": {
      "ok": true,
@@ -584,5 +584,6 @@
   }
  ],
  "missing_in_candidate": [],
- "extra_in_candidate": []
+ "extra_in_candidate": [],
+ "matched_by": "name"
 }

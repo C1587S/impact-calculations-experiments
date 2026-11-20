@@ -1,0 +1,29 @@
+# Profiling, energy: the other_energy single on master,
+# the reference for energy_gccollect_econfix.
+# Copy of energy/configs/single/other_energy-ssp3-rcp85-high.yml (rcp85,
+# CCSM4, high, SSP3) in
+# /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-energy/hpc-jobs/,
+# the config of job 61798435, task 19.
+# configs/base/hddcddspline_OTHERIND_other_energy.yml is a copy of the energy
+# model config in the same configs/ folder.
+# Outputs go to scratch. The jobs pass
+# --outputdir=/scratch/midway3/$USER/agri-profiling/energy/outputs
+# on the command line, so each user writes to their own scratch.
+import: "base/hddcddspline_OTHERIND_other_energy.yml"
+mode: single
+outputdir: /scratch/midway3/cadavidsanchez/agri-profiling/energy/outputs
+deltamethod: no
+do_farmers: 'always'
+do_historical: true
+only-rcp: rcp85
+only-models: [CCSM4]
+only-ssp: SSP3
+only-iam: high
+econcovar:
+   class: mean
+   length: 15
+climcovar:
+   class: mean
+   length: 30
+loggdppc-delta: 7.713
+socioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/

@@ -12,7 +12,7 @@
 
 # gccollect on the econmodel-memory branch (worktree impact-calculations-econfix,
 # or ECONFIX_REPO): a full garbage collection every minute (GC_INTERVAL
-# seconds) in the projection's main thread. Shows how low the branch peaks
+# seconds) in the projection's main thread. Shows how low the lazy econ model peaks
 # once dropped weather is freed promptly.
 #
 # Runs on caslake, 30 min after gccollect starts, so the two never read the

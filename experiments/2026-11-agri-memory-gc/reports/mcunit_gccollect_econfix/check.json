@@ -1,6 +1,6 @@
 {
  "candidate": "/scratch/midway3/cadavidsanchez/agri-profiling/mcunit_gccollect_econfix/outputs",
- "baseline": "/scratch/midway3/cadavidsanchez/agri-profiling/mcunit/outputs",
+ "baseline": "master, job 63433857",
  "rtol": 1e-05,
  "atol": 1e-08,
  "exact": false,

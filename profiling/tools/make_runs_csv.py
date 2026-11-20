@@ -11,6 +11,7 @@ The sacct file holds every job since Nov 1, written on a login node with
 Each job is matched to its report in experiments/*/reports/<run>/ by the job id
 in manifest.json. Peaks come from trace.json, the output check from check.json
 and the collections from gc.csv. A cell is empty when its source is missing.
+A master run with no check is a reference, and a run waiting for its check is pending.
 """
 
 import argparse
@@ -40,7 +41,10 @@ NO_MANIFEST = {
     "63433860": ("mcunit-quick", "2026-11-agri-memory-full"),
     "63433861": ("mcunit_econfix-quick", "2026-11-agri-memory-full"),
     "63480993": ("gccollect-quick", "2026-11-agri-memory-gc"),
+    "63584471": ("check_reference", "2026-11-amd-round"),
 }
+# Jobs of a round with no report here yet (still running, or not copied), by job id range
+ROUNDS = [(63567890, 63567908, "2026-11-amd-round")]
 GIB = {"": 1 / 1024 ** 3, "K": 1 / 1024 ** 2, "M": 1 / 1024, "G": 1.0, "T": 1024.0}
 
 
@@ -125,7 +129,8 @@ def main():
             if folder is not None and (folder / "manifest.json").exists():
                 folder = None
         else:  # not copied here yet: the next rebuild after copying fills it in
-            run, experiment = job["JobName"][len(PREFIX):], ""
+            run = job["JobName"][len(PREFIX):]
+            experiment = next((name for first, last, name in ROUNDS if first <= int(job_id) <= last), "")
 
         node = "" if job["NodeList"] in ("", "None assigned") else job["NodeList"]
         cores = int(job["AllocCPUS"] or 0)
@@ -138,8 +143,9 @@ def main():
         if folder is not None and (folder / "check.json").exists():
             montecarlo = re.search(r"^mode:\s*montecarlo", ((manifest or {}).get("config") or {}).get("text", ""), re.M)
             check = output_check(json.loads((folder / "check.json").read_text()), bool(montecarlo))
-        elif manifest:
-            check = "none"
+        elif manifest:  # reference for master runs, pending while a check waits for its pair
+            branch = (manifest.get("impact_calculations") or {}).get("branch")
+            check = "reference" if branch == "master" else "pending" if manifest.get("compare_to") else "none"
         collections = minutes = None
         if folder is not None and (folder / "gc.csv").exists():
             with (folder / "gc.csv").open(newline="") as f:

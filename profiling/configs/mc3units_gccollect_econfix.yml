@@ -1,0 +1,30 @@
+# Profiling, mc3units_gccollect_econfix: Same as mc3units, on the
+# econmodel-memory branch of impact-calculations, with a full garbage collection
+# every minute.
+# Batch 0, rcp85, SSP3, high, with CCSM4, GFDL-ESM2M and MIROC5 run one after
+# another in one process, as a production montecarlo worker does, with the settings of
+# montecarlo/wheat_winter-rcp85.yml, as mcunit.
+# The projection system shuffles the units, so their order may differ
+# between runs. seed-csvv is fixed to the draw of mcunit's pvals.yml, so every unit of both
+# versions uses the same coefficients. The histclim year order is a hash of
+# each unit's folder, so it matches between runs too.
+# Outputs go to scratch. The jobs pass
+# --outputdir=/scratch/midway3/$USER/agri-profiling/mc3units_gccollect_econfix/outputs
+# on the command line, so each user writes to their own scratch.
+# The kit on Midway imports ../../configs/wheat_winter_pbarspline.yml
+# (hpc-jobs/agriculture/configs/), copied here to configs/base/.
+import: "base/wheat_winter_pbarspline.yml"
+mode: montecarlo
+outputdir: /scratch/midway3/cadavidsanchez/agri-profiling/mc3units_gccollect_econfix/outputs
+timeout: 12
+do_farmers: true
+do_historical: true
+only-rcp: rcp85
+only-models: [CCSM4, GFDL-ESM2M, MIROC5]
+only-ssp: SSP3
+only-iam: high
+only-batch-number: 0
+pvals:
+  wheat_winter-280823:
+    seed-csvv: 207090040328577895136399886809632106736
+socioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/

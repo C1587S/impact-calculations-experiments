@@ -1,104 +1,82 @@
 # Memory over a full agriculture run
 
-This experiment measures the memory of the winter wheat projection with all regions, which is what sets the memory a job asks for. It covers a single and one montecarlo unit, each on master and with the [lazy economic model](https://github.com/ClimateImpactLab/impact-calculations/tree/econmodel-memory), profiled on Midway on November 18, 2026.
+The winter wheat single and one montecarlo unit with all regions, each on master and with the lazy econ model, run on Midway on November 18, 2026.
 
 ## Summary
 
-In the single, the lazy economic model did not lower the peak, which was 20.4 GiB on master and 22.9 GiB with the lazy economic model. The difference appears to come from the timing of garbage collection rather than from the change. In the montecarlo unit, which keeps the ten economic models loaded, the lazy economic model lowered the peak from 20.2 to 15.4 GiB.
+In the single, the lazy econ model did not lower the peak, 20.4 GiB on master against 22.9 GiB, a difference that appears to come from the timing of garbage collection. In the montecarlo unit, which keeps the ten economic models loaded, it lowered the peak from 20.2 to 15.4 GiB.
 
-The single peaked hours into the run, in the covariate step of a histclim variant, not at startup. The runs suggest that this peak is weather data that Python frees only at a full garbage collection, which the [garbage collection runs](../2026-11-agri-memory-gc/README.md) looked at next. On master, the montecarlo unit (4 files) took 6.1 h against 10.3 h for the single (8 files).
+The single peaked hours into the run, in the covariates of a histclim variant, not at startup. This peak appears to be weather data that Python frees only at a full garbage collection, tested next in the [gc](../2026-11-agri-memory-gc/README.md) round. On master, the montecarlo unit (4 files) took 6.1 h against 10.3 h for the single (8 files).
 
 ## Setup
 
-There are four runs. baseline is the single on master (8 files) and econfix the same single with the lazy economic model. mcunit is montecarlo unit batch 0 on master (4 files, ten economic models), and mcunit_econfix the same unit with the lazy economic model. All four wrote every file.
+baseline is the single on master and econfix the same single with the lazy econ model. mcunit is montecarlo unit batch 0 on master, and mcunit_econfix the same unit with the lazy econ model. All four wrote every file. Master is [`ca9da17`](https://github.com/ClimateImpactLab/impact-calculations/commit/ca9da178378ffbadcb149b9666ddd86c2faa7e02). Lazy econ model is [`econmodel-memory`](https://github.com/ClimateImpactLab/impact-calculations/tree/econmodel-memory) at [`61d2f28`](https://github.com/ClimateImpactLab/impact-calculations/commit/61d2f28af62c52e8431a41c517b486ee23c1f1a2).
 
-baseline, econfix and mcunit started at 12:10:47 on the same node (midway3-0430, Intel Xeon Gold 6448Y), with one core each. mcunit_econfix started at 16:54:30 on caslake (midway3-0153, Intel Xeon Gold 6248R), also with one core.
+baseline, econfix and mcunit ran on cil and mcunit_econfix on caslake, so its wall time does not compare with the others.
 
-Memory is the RSS of the projection process, sampled every second, in GiB, and the job cgroup stayed within 0.7 GiB of it. Peaks are those of the job cgroup, and tables that also give the process peak label it. Reads are in GB. Each variant has three stages, taken from the log: covariates, calculation setup and the year loop (1981 to 2098), which ends by writing the file.
+Peaks are cgroup peaks, and the cgroup stayed within 0.7 GiB of the process RSS.
 
 ## Memory over the run
 
-Timelines open in Perfetto and take about 10 seconds to load.
+| run | code | cgroup peak | process peak | stage of the peak | timeline |
+|-----|------|-------------|--------------|-------------------|----------|
+| baseline | master | 20.4 GiB | 20.3 GiB at 6.98 h | covariates of noadapt-histclim | [timeline][p-base] |
+| econfix | lazy econ model | 22.9 GiB | 22.8 GiB at 5.08 h | covariates of histclim | [timeline][p-econfix] |
+| mcunit | master | 20.2 GiB | 20.2 GiB at 2.72 h | calculation setup of incadapt | [timeline][p-mcunit] |
+| mcunit_econfix | lazy econ model | 15.4 GiB | 15.3 GiB at 3.25 h | covariates of incadapt | [timeline][p-mcfix] |
 
-| run | cgroup peak | process peak | time of peak | stage |
-|-----|-------------|--------------|--------------|-------|
-| baseline | 20.4 GiB | 20.3 GiB | 6.98 h | covariates of noadapt-histclim ([run timeline][p-base]) |
-| econfix | 22.9 GiB | 22.8 GiB | 5.08 h | covariates of histclim ([run timeline][p-econfix]) |
-| mcunit | 20.2 GiB | 20.2 GiB | 2.72 h | calculation setup of incadapt ([run timeline][p-mcunit]) |
-| mcunit_econfix | 15.4 GiB | 15.3 GiB | 3.25 h | covariates of incadapt ([run timeline][p-mcfix]) |
+Startup peaked at 10.2 GiB on master and 1.8 GiB with the lazy econ model. The covariates of a histclim variant read 56.6 GB of weather, against 15.5 GB in the other variants, and in the first histclim variant memory rose in steps of about 0.4 GiB, one per weather year.
 
-Startup, which loads the ten economic models, peaked at 10.2 GiB on master and 1.8 GiB with the lazy economic model. The covariate step of a histclim variant read 56.6 GB of weather, against 15.5 GB in the other variants, and in the first histclim variant memory rose in steps of about 0.4 GiB, one per weather year.
+Memory grew steadily in the year loops of noadapt (10 to 12 GiB/h in the singles) and global (3 to 6 GiB/h), and stayed flat in those of fulladapt and incadapt. It dropped in single steps, often mid-stage rather than at the end of a stage, and writing the output files had no visible effect on memory.
 
-In these runs, steady growth occurred only in the year loops of noadapt (10 to 12 GiB/h in the singles) and global (3 to 6 GiB/h), while the year loops of fulladapt and incadapt stayed flat. Memory dropped in single steps, often mid-stage, rather than at the end of a stage, and writing the output files had no visible effect on memory.
-
-![Memory of the four full runs, with each variant and its covariate step shaded](figures/memory_timeline.png)
-
-## Effect of the lazy economic model
-
-| stage | master | lazy economic model |
-|-------|--------|--------|
-| startup peak | 10.2 GiB | 1.8 GiB |
-| fulladapt year loop (median) | 5.6 GiB | 3.8 GiB |
-| noadapt year loop | 7.8 GiB | 7.4 GiB |
-| incadapt year loop | 11.0 GiB | 6.1 GiB |
-| global year loop | 11.7 GiB | 7.6 GiB |
-| start of histclim | 14.1 GiB | 10.8 GiB |
-| year loops from histclim on | 16.3 to 18.8 GiB | 16.3 to 16.9 GiB |
-| montecarlo unit peak (cgroup) | 20.2 GiB | 15.4 GiB |
-
-In the single, the higher peak with the lazy economic model appears to come from when the garbage collection ran, not from the change. The size and timing of each spike varied with it.
-
-![Memory of master and the lazy economic model at the same stage](figures/memory_by_stage.png)
+![Memory of the four full runs.](figures/memory_timeline.png)
 
 ## Probable cause of the peak
 
 References are to impact-calculations [`ca9da17`](https://github.com/ClimateImpactLab/impact-calculations/commit/ca9da178378ffbadcb149b9666ddd86c2faa7e02) and [openest 3.1.5.dev16](https://github.com/ClimateImpactLab/open-estimate).
 
-In openest, `FastDataset` and its `FastDataArray` objects reference each other (`openest/generate/fast_dataset.py:38-43, 185`), so they are freed only by a full garbage collection, not when the last reference is dropped. Weather for each year and each region is built from these objects (`generate/weather.py:318, 440, 559`, `fast_dataset.py:300`). A region's arrays are views of the full year (`fast_dataset.py:293, 299`), so one uncollected region keeps the whole year in memory.
+In openest, `FastDataset` and its `FastDataArray` objects reference each other (`openest/generate/fast_dataset.py:38-43, 185`), so they are freed at a full garbage collection, not when the last reference is dropped. Weather for each year and each region is built from these objects (`generate/weather.py:318, 440, 559`, `fast_dataset.py:300`). A region's arrays are views of the full year (`fast_dataset.py:293, 299`), so one uncollected region keeps the whole year in memory.
 
-A full run keeps millions of long-lived objects, such as the calculations, curves and covariate averages of each region, so Python 3.7 runs a full collection rarely and discarded weather accumulates in between. histclim reads all seven weather variables for each seasonal covariate (`weather.py:404, 437-445`), about 0.4 GiB per year, which matches the size of each step. noadapt and global reuse the 2015 curve of each region (`adaptation/curvegen.py:243-244`), add few new objects and trigger full collections less often, which matches growth only in those two variants. Quick runs with one region pushed the same weather through the same step and rose 0.5 GiB at most.
+A full run keeps millions of long-lived objects, such as the calculations, curves and covariate averages of each region, so Python 3.7 runs a full collection rarely and discarded weather accumulates in between. histclim reads all seven weather variables for each seasonal covariate (`weather.py:404, 437-445`), about 0.4 GiB per year, the size of each step. noadapt and global reuse the 2015 curve of each region (`adaptation/curvegen.py:243-244`), add few new objects and trigger full collections less often, which matches the growth in those two variants. Quick runs with one region pushed the same weather through the same step and rose 0.5 GiB at most.
 
-The code and these runs make other causes unlikely: output arrays (preallocated, about 0.2 GB per file), covariate averages (fixed length), the two-year weather window, the curve cache (one per region) and diagnostics (dropped without a diagnostic file). The garbage collection runs are consistent with this explanation, since with a collection every minute the single peaked at 10.1 GiB, at startup ([garbage collection report](../2026-11-agri-memory-gc/README.md)).
+The code and these runs make other causes unlikely: output arrays (preallocated, about 0.2 GB per file), covariate averages (fixed length), the two-year weather window, the curve cache (one per region) and diagnostics (dropped without a diagnostic file). With a collection every minute the single peaked at 10.1 GiB, at startup, in the [gc](../2026-11-agri-memory-gc/README.md) round.
 
-![Memory in the covariate step of the first histclim variant, with each seasonal covariate marked](figures/histclim_spike.png)
+![Memory in the covariates of the first histclim variant.](figures/histclim_spike.png)
 
 ## Other observations
 
-The 34.2 GiB total over all processes in econfix is one sample, 1 s before the end of the run. `generate/generate.py:287` runs `os.system("chmod ...")`, which forks the process, and the sampler counts the shared memory twice. The cgroup read 17.5 GiB at that second.
+The 34.2 GiB total over all processes in econfix is one sample, 1 s before the end, when `os.system("chmod ...")` at `generate/generate.py:287` forks the process and the sampler counts shared memory twice, while the cgroup read 17.5 GiB.
 
-baseline and econfix ended at the same second after 10.3 h. Both read the same weather files in the same order on one node, and the job in front reads from the file system while the one behind finds the blocks cached, so the two move in step. Their wall times are therefore not independent measures, and the only clean time difference is the lazy economic model's 46 s shorter startup.
+baseline and econfix ended at the same second after 10.3 h, reading the same weather in step on one node, so their wall times are not independent measures apart from the 46 s shorter startup with the lazy econ model.
 
-![Seconds each run is behind baseline at the same log line](figures/run_lag.png)
+![Seconds each run is behind baseline at the same log line.](figures/run_lag.png)
 
 ## Output checks
 
-| run | reference | files | result |
-|-----|-----------|-------|--------|
-| econfix | baseline | 8 | all identical ([output check][c-econfix]) |
-| mcunit_econfix | mcunit | 4 | 3 identical, histclim differs ([output check][c-mcfix]) |
+| run | reference | files | identical | largest difference | result |
+|-----|-----------|-------|-----------|--------------------|--------|
+| econfix | agriculture/wheat_winter/single/rcp85/CCSM4/high/SSP3 | 8 | 2 | 7.5e-09 | [pass][c-econfix] |
+| mcunit_econfix | master, job 63433857 | 4 | 3 | 3.6e+03 | [fail][c-mcfix], histclim |
 
-Master and the lazy economic model gave the same economic model values and the same outputs in eight regions ([same values, step by step][same-nb]).
+Paths are under `/project/cil/gcp/outputs_newsocioeconomics/`. Pass means every variable is within rtol 1e-5 and atol 1e-8. The small differences in econfix come from master and the lazy econ model running on different CPU types.
 
-The histclim file of mcunit_econfix differs because of its year-order seed. `seed-yearorder` is a crc32 hash of batch, RCP, GCM, SSP and IAM (`generate/pvalses.py:246-248`). When the output folder already has a `pvals.yml` without the seed, the fields come in another order (`generate/generate.py:70` against `generate/generate.py:236-240`), which gives a different seed. mcunit_econfix started from mcunit's `pvals.yml`, which held `seed-csvv` but not yet `seed-yearorder`, so its histclim seed differs: 1691349118 against 2357346654 in mcunit.
+Master and the lazy econ model gave the same economic model values and the same outputs in eight regions ([notebook][same-nb]).
+
+The histclim file of mcunit_econfix differs because it started from mcunit's `pvals.yml` without `seed-yearorder`, so the crc32 hash of batch, RCP, GCM, SSP and IAM (`generate/pvalses.py:246-248`) took the fields in another order (`generate/generate.py:70` against `generate/generate.py:236-240`) and gave seed 1691349118 against 2357346654 in mcunit.
 
 ## Runs
 
-Timelines open in Perfetto and take about 10 seconds to load.
-
 | run | code | wall | cgroup peak | process peak | files |
 |-----|------|------|-------------|--------------|-------|
-| baseline | master [`ca9da17`](https://github.com/ClimateImpactLab/impact-calculations/commit/ca9da178378ffbadcb149b9666ddd86c2faa7e02) | 10:18:44 | 20.4 GiB | 20.3 GiB at 6.98 h | [run details][m-base], [run timeline][p-base], [stage times][s-base] |
-| econfix | branch [`61d2f28`](https://github.com/ClimateImpactLab/impact-calculations/commit/61d2f28af62c52e8431a41c517b486ee23c1f1a2) | 10:18:44 | 22.9 GiB | 22.8 GiB at 5.08 h | [run details][m-econfix], [run timeline][p-econfix], [stage times][s-econfix], [output check][c-econfix] |
-| mcunit | master [`ca9da17`](https://github.com/ClimateImpactLab/impact-calculations/commit/ca9da178378ffbadcb149b9666ddd86c2faa7e02) | 6:05:27 | 20.2 GiB | 20.2 GiB at 2.72 h | [run details][m-mcunit], [run timeline][p-mcunit], [stage times][s-mcunit] |
-| mcunit_econfix | branch [`61d2f28`](https://github.com/ClimateImpactLab/impact-calculations/commit/61d2f28af62c52e8431a41c517b486ee23c1f1a2) | 7:26:19 (caslake) | 15.4 GiB | 15.3 GiB at 3.25 h | [run details][m-mcfix], [run timeline][p-mcfix], [stage times][s-mcfix], [output check][c-mcfix] |
-
-mcunit_econfix peaked at 15.4 GiB in the cgroup, against 20.2 GiB for mcunit. It ran on caslake, another CPU model, so its wall time is not comparable with the other runs.
+| baseline | master [`ca9da17`](https://github.com/ClimateImpactLab/impact-calculations/commit/ca9da178378ffbadcb149b9666ddd86c2faa7e02) | 10:18:44 | 20.4 GiB | 20.3 GiB at 6.98 h | [details][m-base], [timeline][p-base], [stages][s-base] |
+| econfix | lazy econ model [`61d2f28`](https://github.com/ClimateImpactLab/impact-calculations/commit/61d2f28af62c52e8431a41c517b486ee23c1f1a2) | 10:18:44 | 22.9 GiB | 22.8 GiB at 5.08 h | [details][m-econfix], [timeline][p-econfix], [stages][s-econfix], [check][c-econfix] |
+| mcunit | master [`ca9da17`](https://github.com/ClimateImpactLab/impact-calculations/commit/ca9da178378ffbadcb149b9666ddd86c2faa7e02) | 6:05:27 | 20.2 GiB | 20.2 GiB at 2.72 h | [details][m-mcunit], [timeline][p-mcunit], [stages][s-mcunit] |
+| mcunit_econfix | lazy econ model [`61d2f28`](https://github.com/ClimateImpactLab/impact-calculations/commit/61d2f28af62c52e8431a41c517b486ee23c1f1a2) | 7:26:19 (caslake) | 15.4 GiB | 15.3 GiB at 3.25 h | [details][m-mcfix], [timeline][p-mcfix], [stages][s-mcfix], [check][c-mcfix] |
 
 ## Run
 
-- Configs in this repo: [`baseline.yml`](../../profiling/configs/baseline.yml), [`econfix.yml`](../../profiling/configs/econfix.yml), [`mcunit.yml`](../../profiling/configs/mcunit.yml) and [`mcunit_econfix.yml`](../../profiling/configs/mcunit_econfix.yml) in [`profiling/configs/`](../../profiling/configs/). They import the agriculture base config, copied to [`profiling/configs/base/wheat_winter_pbarspline.yml`](../../profiling/configs/base/wheat_winter_pbarspline.yml).
-- Jobs: [`baseline.sbatch`](../../profiling/jobs/baseline.sbatch), [`econfix.sbatch`](../../profiling/jobs/econfix.sbatch), [`mcunit.sbatch`](../../profiling/jobs/mcunit.sbatch), [`mcunit_econfix.sbatch`](../../profiling/jobs/mcunit_econfix.sbatch) and [`check.sbatch`](../../profiling/jobs/check.sbatch) in [`profiling/jobs/`](../../profiling/jobs/), all sourcing [`run_experiment.sh`](../../profiling/jobs/run_experiment.sh). On Midway the same kit runs from `hpc-jobs/agriculture/profiling/`.
-- impact-calculations: master at [`ca9da17`](https://github.com/ClimateImpactLab/impact-calculations/commit/ca9da178378ffbadcb149b9666ddd86c2faa7e02) and the branch [`econmodel-memory`](https://github.com/ClimateImpactLab/impact-calculations/tree/econmodel-memory) at [`61d2f28`](https://github.com/ClimateImpactLab/impact-calculations/commit/61d2f28af62c52e8431a41c517b486ee23c1f1a2).
+- Configs: [`baseline.yml`](../../profiling/configs/baseline.yml), [`econfix.yml`](../../profiling/configs/econfix.yml), [`mcunit.yml`](../../profiling/configs/mcunit.yml) and [`mcunit_econfix.yml`](../../profiling/configs/mcunit_econfix.yml) in [`profiling/configs/`](../../profiling/configs/). They import the agriculture base config, copied to [`profiling/configs/base/wheat_winter_pbarspline.yml`](../../profiling/configs/base/wheat_winter_pbarspline.yml).
+- Jobs: [`baseline.sbatch`](../../profiling/jobs/baseline.sbatch), [`econfix.sbatch`](../../profiling/jobs/econfix.sbatch), [`mcunit.sbatch`](../../profiling/jobs/mcunit.sbatch), [`mcunit_econfix.sbatch`](../../profiling/jobs/mcunit_econfix.sbatch) and [`check.sbatch`](../../profiling/jobs/check.sbatch) in [`profiling/jobs/`](../../profiling/jobs/), all sourcing [`run_experiment.sh`](../../profiling/jobs/run_experiment.sh). On Midway the kit runs from `hpc-jobs/agriculture/profiling/`.
 - Figures: `python3 figures/make_figures.py`, from the files in `reports/`.
 - From `hpc-jobs/` on Midway:
 
@@ -113,7 +91,7 @@ sbatch agriculture/profiling/jobs/check.sbatch    # output checks, once all have
 
 ## Data
 
-- `/scratch/midway3/cadavidsanchez/agri-profiling/<run>/`: outputs and raw samples. Scratch is purged periodically.
+- `/scratch/midway3/cadavidsanchez/agri-profiling/<run>/`: outputs and raw samples.
 - `/project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/checks/agriculture/profiling-full/`: 1 s samples, run logs, Slurm logs, output file times and sacct.
 
 [p-base]: https://c1587s.github.io/impact-calculations-experiments/perfetto.html?trace=experiments/2026-11-agri-memory-full/reports/baseline/trace.json
