@@ -40,6 +40,9 @@ GB_PER_CORE = 3.75  # caslake bills hours x max(cores, GB / 3.75)
 AMD_MEMORY_GB = 9882 * 64 / (11 * 24)  # in use at once in the labor montecarlo: CPU hours x GB / hours
 AMD_SPEED = 1.0  # amd hours over cil hours, not measured
 
+# Stage plots: the run whose stage lengths set the time axis, by kind of run
+REFERENCES = {"single": "baseline", "montecarlo unit": "mcunit", "quick": "baseline-quick"}
+
 VERSIONS = ["master", "branch", "master + gc", "branch + gc"]
 GROUPS = ["quick runs", "full singles", "montecarlo units", "gc runs"]
 MEASURES = {  # trace counter, track, axis label. "memory GB" is in GiB (1024 ** 3 bytes).
@@ -138,21 +141,57 @@ def _load_run(root, folder, files, local):
 # Stage axis ------------------------------------------------------------------
 
 
-def stage_axis(runs):
-    """Stage keys in one order (the longest run's, then any it lacks) and a function placing
-    a run's times on that axis, each stage one unit wide whatever its length."""
-    order = []
-    for run in sorted(runs, key=lambda r: -len(r["stages"])):
-        order += [s["key"] for s in run["stages"] if s["key"] not in order]
+def reference(chosen, runs):
+    """The run whose stage lengths set the time axis for the chosen runs (REFERENCES)."""
+    kind = max(chosen, key=lambda r: len(r["stages"]))["kind"]
+    return next(r for r in runs if r["name"] == REFERENCES[kind])
+
+
+def stage_axis(ref):
+    """A function placing a run's times on the reference run's clock, in hours. Each stage of
+    the run is stretched to the length of the same stage in the reference, so runs on another
+    CPU still line up. Times outside the reference's stages are left out."""
+    spans = {s["key"]: (s["start"], s["end"]) for s in ref["stages"]}
+    order = [s["key"] for s in ref["stages"]]
 
     def position(run, seconds):
         x = np.full(len(seconds), np.nan)
         for s in run["stages"]:
-            inside = (seconds >= s["start"]) & (seconds < s["end"])
-            x[inside] = order.index(s["key"]) + (seconds[inside] - s["start"]) / max(s["end"] - s["start"], 1e-9)
-        return x
+            if s["key"] in spans:
+                a, b = spans[s["key"]]
+                inside = (seconds >= s["start"]) & (seconds < s["end"])
+                x[inside] = a + (b - a) * (seconds[inside] - s["start"]) / max(s["end"] - s["start"], 1e-9)
+        for prev, s in zip(run["stages"], run["stages"][1:]):  # no line across stages the run skips
+            if prev["key"] in spans and s["key"] in spans and order.index(s["key"]) != order.index(prev["key"]) + 1:
+                first = np.flatnonzero(seconds >= s["start"])
+                if len(first):
+                    x[first[0]] = np.nan
+        return x / 3600
 
-    return order, position
+    return position
+
+
+def fits(run, ref):
+    """Whether every stage of a run has a match in the reference (mortality has other stages)."""
+    return {s["key"] for s in run["stages"]} <= {s["key"] for s in ref["stages"]}
+
+
+def time_label(ref):
+    return "Hours since start (%s, %s)" % (ref["name"], ref["partition"])
+
+
+def stage_names(ax, ref, fontsize=7, smallest=0.04):
+    """Stage names of the reference above the plot and a thin line at each boundary. Stages
+    shorter than `smallest` of the run, like startup, get no name."""
+    total = ref["stages"][-1]["end"]
+    for s in ref["stages"][1:]:
+        ax.axvline(s["start"] / 3600, color="0.85", linewidth=0.6, zorder=0)
+    named = [s for s in ref["stages"] if (s["end"] - s["start"]) / total >= smallest]
+    top = ax.secondary_xaxis("top")
+    top.set_xticks([(s["start"] + s["end"]) / 7200 for s in named], [s["key"].replace("-", "-\n") for s in named])
+    top.tick_params(length=0, labelsize=fontsize)
+    top.spines["top"].set_visible(False)
+    ax.set_xlim(0, total / 3600)
 
 
 # Figures ---------------------------------------------------------------------
@@ -176,6 +215,14 @@ def _legend(fig, runs):
                         if any(r["version"] == v for r in runs)], loc="outside upper left", ncols=2)
 
 
+def _line_legend(fig, ax):
+    """Legend of the lines in two columns, or in one when two would not fit the width."""
+    labels = [line.get_label() for line in ax.get_lines() if not line.get_label().startswith("_")]
+    half = (len(labels) + 1) // 2  # matplotlib fills the first column first
+    wide = max(map(len, labels[:half]), default=0) + max(map(len, labels[half:]), default=0) > 95
+    fig.legend(loc="outside upper left", ncols=1 if wide else 2)
+
+
 def peak_bars(runs, group):
     """Peak memory of the job cgroup in each run of a group."""
     runs = [r for r in runs if r["group"] == group]
@@ -192,31 +239,37 @@ def peak_bars(runs, group):
 
 
 def over_run(runs, group, measure="memory", by_stage=False):
-    """One line per run of a group over hours, or over stages each drawn at the same width."""
-    runs = [r for r in runs if r["group"] == group]
-    order, position = stage_axis(runs)
+    """One line per run of a group over hours. With by_stage, the hours are those of the reference
+    run, and each stage of the other runs is stretched to its length there."""
+    chosen = [r for r in runs if r["group"] == group]
+    if by_stage:
+        ref = reference(chosen, runs)
+        position = stage_axis(ref)
+        chosen = [r for r in chosen if fits(r, ref)]
     fig, (ax,) = figure(height=2.8)
-    for r in runs:
+    for r in chosen:
         values = r["series"][measure].dropna()
         seconds = values.index.to_numpy()
         ax.plot(position(r, seconds) if by_stage else seconds / 3600, values.to_numpy(), color=COLORS[r["version"]],
                 linestyle=LINESTYLES[r["kind"]], label="%s (%s)" % (r["name"], label(r["version"])))
     if by_stage:
-        ax.set_xticks([i + 0.5 for i in range(len(order))], [k.replace("-", "-\n") for k in order])
-        ax.set_xlim(0, len(order))
+        stage_names(ax, ref)
+        ax.set_xlabel(time_label(ref))
     else:
         ax.set_xlim(0, None)
         ax.set_xlabel("Time since start (h)")
     ax.set_ylim(0, None)
     ax.set_ylabel(MEASURES[measure][2])
-    fig.legend(loc="outside upper left", ncols=2)
+    _line_legend(fig, ax)
     return fig
 
 
 def memory_by_stage(runs, group):
     """Peak memory of startup, then the median of each year loop, for each run of a group."""
     runs = [r for r in runs if r["group"] == group]
-    order, _ = stage_axis(runs)
+    order = []  # the longest run's stages, then any it lacks
+    for run in sorted(runs, key=lambda r: -len(r["stages"])):
+        order += [s["key"] for s in run["stages"] if s["key"] not in order]
     fig, (ax,) = figure(height=2.6)
     for r in runs:
         memory = r["series"]["memory"].dropna()
@@ -229,7 +282,7 @@ def memory_by_stage(runs, group):
     ax.set_xticks(range(len(order)), ["startup\n(peak)"] + [k.replace("-", "-\n") for k in order[1:]])
     ax.set_ylim(0, None)
     ax.set_ylabel("Memory (GiB)")
-    fig.legend(loc="outside upper left", ncols=2)
+    _line_legend(fig, ax)
     return fig
 
 

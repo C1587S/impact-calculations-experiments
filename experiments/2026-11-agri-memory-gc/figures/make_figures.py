@@ -5,7 +5,8 @@ Usage: python3 make_figures.py
 Writes memory_timeline.png (singles), memory_timeline_mcunit.png (montecarlo
 units) and peak_memory.png next to this script, 1600 px wide on white. The gc
 runs come from reports/ here, baseline, econfix, mcunit and mcunit_econfix from
-the full-run experiment's reports/.
+the full-run experiment's reports/. The timelines use the hours of baseline or
+mcunit on cil, and each stage of the other runs is stretched to its length there.
 """
 
 import json
@@ -42,8 +43,7 @@ SINGLES = ["baseline", "econfix", "gccollect", "gccollect_econfix"]
 UNITS = ["mcunit", "mcunit_econfix", "mcunit_gccollect_econfix"]
 VARIANTS = ["fulladapt", "noadapt", "incadapt", "global", "histclim",
             "noadapt-histclim", "incadapt-histclim", "global-histclim"]
-UNIT_VARIANTS = ["fulladapt", "noadapt", "incadapt", "histclim"]
-STARTUP_WIDTH = 0.5
+SMALLEST = 0.04  # stages shorter than this share of the run get no name
 
 plt.rcParams.update({
     "font.family": ["Arial", "DejaVu Sans"],
@@ -84,14 +84,19 @@ def load_run(run):
     return dict(memory=memory, cgroup=cgroup, stages=stages, manifest=manifest)
 
 
-def position(stages, t):
-    """Place a time on the shared stage axis: startup is 0.5 wide, each variant 1."""
-    for i, (name, a, b) in enumerate(stages):
-        if a <= t < b or i == len(stages) - 1:
-            start = 0.0 if i == 0 else STARTUP_WIDTH + i - 1
-            width = STARTUP_WIDTH if i == 0 else 1.0
-            return start + width * min(max((t - a) / max(b - a, 1e-9), 0.0), 1.0)
-    return 0.0
+def mapper(reference):
+    """Place a run's time on the reference run's clock, in hours: each stage of the run is
+    stretched to the length of the same stage in the reference. None outside the stages."""
+    spans = {name: (a, b) for name, a, b in reference["stages"]}
+
+    def position(stages, t):
+        for name, a, b in stages:
+            if a <= t < b and name in spans:
+                ra, rb = spans[name]
+                return (ra + (rb - ra) * (t - a) / max(b - a, 1e-9)) / 3600
+        return None
+
+    return position
 
 
 def clean(ax, grid_axis="y"):
@@ -108,32 +113,34 @@ def save(fig, name):
     print("wrote", name)
 
 
-def timeline(data, runs, variants, name, legend_columns):
-    """Memory of the projection process in the given runs, on one stage axis."""
+def timeline(data, runs, reference, name, legend_columns):
+    """Memory of the projection process in the given runs, on the reference run's clock."""
+    ref = data[reference]
+    position = mapper(ref)
+    total = ref["stages"][-1][2] / 3600
     fig, ax = plt.subplots(figsize=(WIDTH_IN, 4.8))
-    fig.subplots_adjust(left=0.075, right=0.985, top=0.84 if legend_columns == 2 else 0.8, bottom=0.04)
+    fig.subplots_adjust(left=0.075, right=0.985, top=0.84 if legend_columns == 2 else 0.8, bottom=0.12)
     top = 25.0
-    ax.axvspan(0, STARTUP_WIDTH, color=BAND_B, linewidth=0, zorder=0)
-    ax.text(STARTUP_WIDTH / 2, top - 0.6, "start-\nup", ha="center", va="top", fontsize=9, color=TEXT_2, linespacing=1.0)
-    for i, variant in enumerate(variants):
-        x0 = STARTUP_WIDTH + i
-        ax.axvspan(x0, x0 + 1, color=BAND_A if i % 2 == 0 else BAND_B, linewidth=0, zorder=0)
-        ax.text(x0 + 0.5, top - 0.6, variant.replace("-", "\n"), ha="center", va="top", fontsize=9, color=TEXT_2,
-                linespacing=1.0)
+    for i, (stage, a, b) in enumerate(ref["stages"]):
+        ax.axvspan(a / 3600, b / 3600, color=BAND_B if i % 2 == 0 else BAND_A, linewidth=0, zorder=0)
+        if (b - a) / 3600 >= SMALLEST * total:
+            ax.text((a + b) / 7200, top - 0.6, stage.replace("-", "\n"), ha="center", va="top", fontsize=9,
+                    color=TEXT_2, linespacing=1.0)
     for run in runs:
         d = data[run]
-        xs = [position(d["stages"], t) for t, _ in d["memory"]]
-        ys = [y for _, y in d["memory"]]
+        points = [(position(d["stages"], t), y) for t, y in d["memory"]]
+        xs = [x for x, _ in points if x is not None]
+        ys = [y for x, y in points if x is not None]
         color = RUNS[run][1]
         ax.plot(xs, ys, color=color, linewidth=1.3, zorder=3)
         k = max(range(len(ys)), key=ys.__getitem__)
         ax.plot(xs[k], ys[k], "o", color=color, markersize=6, markeredgecolor="white", markeredgewidth=1.2, zorder=5)
     clean(ax)
-    ax.set_xlim(0, STARTUP_WIDTH + len(variants))
-    ax.set_xticks([])
+    ax.set_xlim(0, total)
     ax.set_ylim(0, top)
     ax.set_yticks(range(0, 25, 4))
     ax.set_ylabel("GiB")
+    ax.set_xlabel("Hours since start (%s, %s)" % (reference, ref["manifest"]["slurm"]["job_partition"]))
     handles = [Line2D([], [], color=RUNS[r][1], linewidth=2.5) for r in runs]
     fig.legend(handles, [RUNS[r][0] for r in runs], loc="upper left", ncol=legend_columns, frameon=False,
                bbox_to_anchor=(0.065, 1.0), fontsize=10, handlelength=1.6, columnspacing=1.4)
@@ -163,8 +170,8 @@ def peaks(data):
 
 def main():
     data = {run: load_run(run) for run in RUNS}
-    timeline(data, SINGLES, VARIANTS, "memory_timeline.png", 2)
-    timeline(data, UNITS, UNIT_VARIANTS, "memory_timeline_mcunit.png", 1)
+    timeline(data, SINGLES, "baseline", "memory_timeline.png", 2)
+    timeline(data, UNITS, "mcunit", "memory_timeline_mcunit.png", 1)
     peaks(data)
 
 

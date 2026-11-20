@@ -47,7 +47,7 @@ With a collection every minute, memory no longer grew within a year loop. noadap
 
 With the collections, the lazy economic model stayed 1.1 to 2.8 GiB below master in every year loop. Its memory rose from 2.8 GiB in the fulladapt year loop to 4.9 GiB in global-histclim, while master stayed between 5.5 and 6.1 GiB.
 
-![Memory of the four singles, each variant drawn at the same width](figures/memory_timeline.png)
+![Memory of the four singles over the run. Each stage is drawn at its length in baseline on cil, with the other runs mapped onto it stage by stage.](figures/memory_timeline.png)
 
 | process memory by stage | mcunit | mcunit_econfix | mcunit_gccollect_econfix |
 |-------|--------|----------------|--------------------------|
@@ -59,7 +59,7 @@ With the collections, the lazy economic model stayed 1.1 to 2.8 GiB below master
 
 The montecarlo unit appears to behave like the single. With the collections, memory no longer grew within a year loop, and the noadapt year loop stayed at 3.9 GiB against up to 13.6 GiB in mcunit_econfix. The covariates of incadapt, where mcunit_econfix peaked at 15.3 GiB, reached 4.2 GiB, and the run peaked instead in the covariates of histclim, at 4.9 GiB. The startup peak stayed at 1.9 GiB.
 
-![Memory of the three montecarlo units, each variant drawn at the same width](figures/memory_timeline_mcunit.png)
+![Memory of the three montecarlo units over the run. Each stage is drawn at its length in mcunit on cil, with the other runs mapped onto it stage by stage.](figures/memory_timeline_mcunit.png)
 
 ## Time cost of garbage collection
 

@@ -2,8 +2,10 @@
 
 Usage: python3 figures/make_figures.py
 
-Writes peak_memory.png and memory_singles.png next to this script, from the
-runs under experiments/*/reports/, loaded with dashboard/utils.py.
+Writes peak_memory.png, memory_singles.png and memory_annotated.png next to
+this script, from the runs under experiments/*/reports/, loaded with
+dashboard/utils.py. Over the run, hours are those of baseline on cil, and each
+stage of the other runs is stretched to its length in baseline.
 """
 
 import os
@@ -45,27 +47,30 @@ def peaks(runs):
 
 
 def singles(runs):
-    """Job memory of the four full singles over the run, each stage drawn at the same width."""
+    """Job memory of the four full singles over the run, on baseline's clock."""
     chosen = [runs[n] for n in SINGLES]
-    order, position = utils.stage_axis(chosen)
+    ref = runs["baseline"]
+    position = utils.stage_axis(ref)
     fig, (ax,) = utils.figure(height=2.8)
     for r in chosen:
         values = r["series"]["cgroup"].dropna()
         ax.plot(position(r, values.index.to_numpy()), values.to_numpy(), color=utils.COLORS[r["version"]],
                 label="%s (%s)" % (r["name"], NAMES[r["version"]]))
-    ax.set_xticks([i + 0.5 for i in range(len(order))], [k.replace("-", "-\n") for k in order])
-    ax.set_xlim(0, len(order))
+    utils.stage_names(ax, ref)
     ax.set_ylim(0, None)
+    ax.set_xlabel(utils.time_label(ref))
     ax.set_ylabel("Job memory, cgroup (GiB)")
     fig.legend(loc="outside upper left", ncols=2)
     fig.savefig(OUT / "memory_singles.png", dpi=200)
     print("wrote memory_singles.png")
 
 
-def slack(runs):
-    """Two lines for a Slack message: baseline against the lazy economic model with a collection every minute."""
+def annotated(runs):
+    """Baseline against the lazy economic model with a collection every minute, with two notes, on baseline's clock."""
     chosen = [runs["baseline"], runs["gccollect_econfix"]]
-    order, position = utils.stage_axis(chosen)
+    ref = runs["baseline"]
+    position = utils.stage_axis(ref)
+    spans = {s["key"]: (s["start"] / 3600, s["end"] / 3600) for s in ref["stages"]}
     fig, (ax,) = utils.figure(height=4.0)
     fig.set_size_inches(10, 4)
     lines = {}
@@ -76,33 +81,34 @@ def slack(runs):
                 label="%s (%s)" % (r["name"], NAMES[r["version"]]))
         lines[r["name"]] = (x, y)
         last = np.flatnonzero(~np.isnan(x))[-1]
-        ax.text(x[last] + 0.08, y[last], "peak %.1f GiB" % r["peak"], va="center", fontsize=12)
+        ax.text(x[last] + 0.1, y[last], "peak %.1f GiB" % r["peak"], va="center", fontsize=12)
 
     # Point at the startup peak and at the start of the histclim spike of baseline.
     x, y = lines["baseline"]
-    startup = np.nanargmax(np.where(x < 1, y, np.nan))
-    spike = np.nanargmax(np.where((x >= 5) & (x < 6), y, np.nan))
+    startup = np.nanargmax(np.where(x < spans["startup"][1], y, np.nan))
+    a, b = spans["histclim"]
+    spike = np.nanargmax(np.where((x >= a) & (x < b), y, np.nan))
     arrow = dict(arrowstyle="-|>", color="black", linewidth=0.8, shrinkA=2, shrinkB=3)
-    ax.annotate("loading the ten\neconomic models", xy=(x[startup], y[startup]), xytext=(0.15, 15.5),
+    ax.annotate("loading the ten\neconomic models", xy=(x[startup], y[startup]), xytext=(0.2, 15.5),
                 fontsize=12, arrowprops=arrow)
     ax.annotate("weather data not yet freed", xy=(x[spike], y[spike]), xytext=(1.6, 21.5),
                 fontsize=12, arrowprops=arrow)
 
-    ax.set_xticks([i + 0.5 for i in range(len(order))], [k.replace("-", "-\n") for k in order])
+    utils.stage_names(ax, ref, fontsize=11)
     ax.tick_params(labelsize=11)
-    ax.set_xlim(0, len(order))
     ax.set_ylim(0, 24)
+    ax.set_xlabel(utils.time_label(ref), fontsize=12)
     ax.set_ylabel("Job memory, cgroup (GiB)", fontsize=12)
     fig.legend(loc="outside upper left", ncols=2, fontsize=12)
-    fig.savefig(OUT / "slack_memory.png", dpi=200)
-    print("wrote slack_memory.png")
+    fig.savefig(OUT / "memory_annotated.png", dpi=200)
+    print("wrote memory_annotated.png")
 
 
 def main():
     runs = {r["name"]: r for r in utils.load_runs(REPO / "dashboard")}
     peaks(runs)
     singles(runs)
-    slack(runs)
+    annotated(runs)
 
 
 if __name__ == "__main__":

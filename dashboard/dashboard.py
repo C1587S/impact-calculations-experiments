@@ -89,7 +89,7 @@ def _(runs, utils):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md("""
-    Memory of the montecarlo units over the run, each variant drawn at the same width, since the two ran on different CPUs.
+    Memory of the montecarlo units over the run. They ran on different CPUs, so each stage is drawn at its length in mcunit on cil, with mcunit_econfix mapped onto it.
     """)
     return
 
@@ -167,7 +167,7 @@ def _(axis_picker, group_picker, measure_picker, mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md("""
-    Figure 7. CPU, memory or read rate over the run for the chosen group of runs.
+    Figure 7. CPU, memory or read rate over the run for the chosen group of runs. On the stage axis, each stage is drawn at its length in the group's reference run, and runs with other stages, like mortality, are left out.
     """)
     return
 

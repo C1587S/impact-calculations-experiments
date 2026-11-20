@@ -33,11 +33,13 @@ In these runs, the [lazy economic model](https://github.com/ClimateImpactLab/imp
 
 The runs suggest that most of the peak in a full run is weather data that Python frees only at a full garbage collection. With a collection every minute, the single peaked at 10.1 GiB on master. With both the lazy economic model and a collection every minute, it peaked at 5.3 GiB, against 20.4 GiB on master. In these runs, collecting every minute took 3.0% to 3.8% of the run time.
 
-The projection appears to use a single core, about 96% of it, in every setup, and one quick run with two cores took about the same time as with one. Outputs were identical in every run except the histclim file of mcunit_econfix, which used a different year-order seed.
+The projection appears to use a single core, about 96% of it, in every setup, and one quick run with two cores took about the same time as with one. A montecarlo unit writes four files instead of eight, and in these runs it took about 60% of a single's time on master, 6.1 against 10.3 h on cil. Outputs were identical in every run except the histclim file of mcunit_econfix, which used a different year-order seed.
 
 ![Peak memory of the full runs in the job cgroup, singles and montecarlo units side by side](figures/peak_memory.png)
 
-![Job memory of the four full singles over the run, each stage drawn at the same width](figures/memory_singles.png)
+![Job memory of the four full singles over the run. Each stage is drawn at its length in baseline on cil, with the other runs mapped onto it stage by stage.](figures/memory_singles.png)
+
+![Process memory of the three montecarlo units over the run. Each stage is drawn at its length in mcunit on cil, with the other runs mapped onto it stage by stage.](experiments/2026-11-agri-memory-gc/figures/memory_timeline_mcunit.png)
 
 ## [2026-11-agri-memory](experiments/2026-11-agri-memory/README.md)
 
