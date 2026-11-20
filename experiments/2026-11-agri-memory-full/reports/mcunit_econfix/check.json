@@ -1,0 +1,310 @@
+{
+ "candidate": "/scratch/midway3/cadavidsanchez/agri-profiling/mcunit_econfix/outputs",
+ "baseline": "/scratch/midway3/cadavidsanchez/agri-profiling/mcunit/outputs",
+ "rtol": 1e-05,
+ "atol": 1e-08,
+ "exact": false,
+ "status": "fail",
+ "files": [
+  {
+   "name": "wheat_winter-280823-histclim.nc4",
+   "ok": false,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 3445.141692519188,
+     "max_rel_diff": 609486.0651339849
+    },
+    "response": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.704531341791153,
+     "max_rel_diff": 95530370.10430998
+    },
+    "response2": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 2.121600091457367,
+     "max_rel_diff": 1805118.6977288935
+    },
+    "response22": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 6.916455030441284,
+     "max_rel_diff": 178076930.52880487
+    },
+    "response222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 261.6005668640137,
+     "max_rel_diff": 428080362.4146193
+    },
+    "response2222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 3587.743944644928,
+     "max_rel_diff": 112385763094025.89
+    },
+    "response22222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 655.5423984006047,
+     "max_rel_diff": 6525693.945853757
+    },
+    "response222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 6.077354555600323e-06,
+     "max_rel_diff": 22985.35079689459
+    },
+    "response2222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 1.1332098543643951,
+     "max_rel_diff": 620337.9484431202
+    },
+    "response22222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.8830723464488983,
+     "max_rel_diff": 1396700.5702922833
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "wheat_winter-280823-incadapt.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "wheat_winter-280823-noadapt.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "wheat_winter-280823.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  }
+ ],
+ "missing_in_candidate": [],
+ "extra_in_candidate": []
+}
