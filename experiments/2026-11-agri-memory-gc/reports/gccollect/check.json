@@ -1,0 +1,588 @@
+{
+ "candidate": "/scratch/midway3/cadavidsanchez/agri-profiling/gccollect/outputs",
+ "baseline": "/scratch/midway3/cadavidsanchez/agri-profiling/baseline/outputs",
+ "rtol": 1e-05,
+ "atol": 1e-08,
+ "exact": false,
+ "status": "pass",
+ "files": [
+  {
+   "name": "wheat_winter-280823-global-histclim.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "wheat_winter-280823-global.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "wheat_winter-280823-histclim.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "wheat_winter-280823-incadapt-histclim.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "wheat_winter-280823-incadapt.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "wheat_winter-280823-noadapt-histclim.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "wheat_winter-280823-noadapt.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "wheat_winter-280823.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  }
+ ],
+ "missing_in_candidate": [],
+ "extra_in_candidate": []
+}
