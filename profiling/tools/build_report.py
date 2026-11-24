@@ -681,6 +681,25 @@ def build(runs, headroom):
                       fmt((totals.get("covariates_s") or 0) / 60, 0), fmt((totals.get("years_s") or 0) / 60, 0)))
     out.append("</tbody></table></div>")
 
+    # Units, for montecarlo jobs that run several in one process
+    multi = [m for m in runs if len((m.get("stages") or {}).get("units") or []) > 1]
+    if multi:
+        out.append("<h2>Memory per unit</h2><p>Runs with several units in one process, one after another. "
+                   "Each unit starts when the projection prints its output folder. Memory at the start is the "
+                   "projection process when the unit begins, and the peaks are within the unit.</p>")
+        out.append("<div class=\"card scroll\"><table><thead><tr><th>run</th><th class=num>unit</th>"
+                   "<th>GCM</th><th class=num>starts at h</th><th class=num>hours</th>"
+                   "<th class=num>GiB at start</th><th class=num>peak process GiB</th>"
+                   "<th class=num>peak cgroup GiB</th></tr></thead><tbody>")
+        for m in multi:
+            for u in m["stages"]["units"]:
+                out.append("<tr><td>%s</td><td class=num>%s</td><td>%s</td><td class=num>%s</td>"
+                           "<td class=num>%s</td><td class=num>%s</td><td class=num>%s</td><td class=num>%s</td></tr>"
+                           % (esc(m["folder"]), u.get("unit"), esc(u.get("name")), fmt(u.get("start_h"), 2),
+                              fmt((u.get("seconds") or 0) / 3600, 2), fmt(u.get("rss_at_start_gb"), 1),
+                              fmt(u.get("peak_rss_gb"), 1), fmt(u.get("peak_cgroup_gb"), 1)))
+        out.append("</tbody></table></div>")
+
     # pyinstrument
     for m in runs:
         if "profile.speedscope.json" not in m["files_here"]:

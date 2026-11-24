@@ -1,0 +1,218 @@
+{
+ "run": "corn_gccollect_econfix",
+ "experiment": "corn_gccollect_econfix",
+ "quick": false,
+ "profiler": "gc",
+ "compare_to": null,
+ "allow_missing": null,
+ "check_exact": false,
+ "config": {
+  "path": "/project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/configs/corn_gccollect_econfix.yml",
+  "text": "# Profiling, corn_gccollect_econfix: the corn single on the econmodel-memory branch of\n# impact-calculations, with a full garbage collection every minute.\n# Copy of single/corn-ssp3-rcp85-high.yml (rcp85, CCSM4, high, SSP3).\n# Outputs go to scratch. The jobs pass\n# --outputdir=/scratch/midway3/$USER/agri-profiling/corn_gccollect_econfix/outputs\n# on the command line, so each user writes to their own scratch.\nimport: \"../../configs/corn-160221.yml\"\nmode: single\noutputdir: /scratch/midway3/cadavidsanchez/agri-profiling/corn_gccollect_econfix/outputs\ndo_farmers: 'always'\ndo_historical: true\nonly-rcp: rcp85\nonly-models: [CCSM4]\nonly-ssp: SSP3\nonly-iam: high\nsocioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/\n"
+ },
+ "command": "python /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/tools/gc_capture.py --interval 60 --log /scratch/midway3/cadavidsanchez/agri-profiling/corn_gccollect_econfix/gc.csv -m generate.generate /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/configs/corn_gccollect_econfix.yml --outputdir=/scratch/midway3/cadavidsanchez/agri-profiling/corn_gccollect_econfix/outputs",
+ "slurm": {
+  "job_id": "63567895",
+  "job_name": "agri-prof-corn_gccollect_econfix",
+  "job_partition": "cil",
+  "job_account": "cil",
+  "cpus_per_task": "1",
+  "mem_per_node": "12288",
+  "job_nodelist": "midway3-0431",
+  "submit_dir": "/project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs"
+ },
+ "cores": 1,
+ "mem_requested_gb": 12.0,
+ "node": {
+  "hostname": "midway3-0431.rcc.local",
+  "cpu_model": "Intel(R) Xeon(R) Gold 6448Y",
+  "cpus_online": 64,
+  "kernel": "4.18.0-305.3.1.el8.x86_64"
+ },
+ "thread_env": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "NUMEXPR_NUM_THREADS": "1",
+  "NUMBA_NUM_THREADS": "1"
+ },
+ "impact_calculations": {
+  "path": "/project/cil/home_dirs/scadavidsanchez/repos/impact-calculations-econfix",
+  "branch": "econmodel-memory",
+  "sha": "61d2f28af62c52e8431a41c517b486ee23c1f1a2",
+  "short_sha": "61d2f28",
+  "changed_files": [
+   "adaptation/precomputed/new_econmodel.py"
+  ]
+ },
+ "python": "3.7.12",
+ "conda_env": "/project/cil/home_dirs/rcc/envs/impact-env",
+ "tools": {
+  "psutil": "7.2.2",
+  "memray": "1.17.2",
+  "pyinstrument": "4.6.2"
+ },
+ "start": "2026-11-20T02:15:02",
+ "end": "2026-11-20T05:53:27",
+ "wall_seconds": 13104.3,
+ "exit_status": 0,
+ "failed": false,
+ "error": null,
+ "outputs": {
+  "dir": "/scratch/midway3/cadavidsanchez/agri-profiling/corn_gccollect_econfix/outputs",
+  "count": 8,
+  "expected": 8,
+  "files": [
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/corn-160221-global-histclim.nc4",
+    "bytes": 36163576
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/corn-160221-global.nc4",
+    "bytes": 36163576
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/corn-160221-histclim.nc4",
+    "bytes": 36163576
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/corn-160221-incadapt-histclim.nc4",
+    "bytes": 36163576
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/corn-160221-incadapt.nc4",
+    "bytes": 36163576
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/corn-160221-noadapt-histclim.nc4",
+    "bytes": 36163576
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/corn-160221-noadapt.nc4",
+    "bytes": 36163576
+   },
+   {
+    "name": "single/rcp85/CCSM4/high/SSP3/corn-160221.nc4",
+    "bytes": 36163576
+   }
+  ]
+ },
+ "telemetry": {
+  "samples": 13082,
+  "seconds": 13104.6,
+  "peak_rss_gb": 4.12,
+  "peak_rss_at_s": 8639.4,
+  "peak_tree_rss_gb": 4.12,
+  "peak_cgroup_gb": 4.11,
+  "peak_cgroup_rss_gb": 4.08,
+  "cgroup_max_usage_gb": 4.16,
+  "mean_cpu_pct": 97.6,
+  "p95_cpu_pct": 98.9,
+  "read_gb": 275.9,
+  "read_disk_gb": 0.0,
+  "max_threads": 1
+ },
+ "stages": {
+  "startup": {
+   "economic models": 187.3,
+   "weather and claim": 1.0
+  },
+  "variants": [
+   {
+    "name": "fulladapt",
+    "seconds": 2017.8,
+    "covariates_s": 448.9,
+    "calculation_setup_s": 7.0,
+    "years_s": 1561.9
+   },
+   {
+    "name": "noadapt",
+    "seconds": 1132.9,
+    "covariates_s": 441.7,
+    "calculation_setup_s": 8.0,
+    "years_s": 683.1
+   },
+   {
+    "name": "incadapt",
+    "seconds": 1803.1,
+    "covariates_s": 439.8,
+    "calculation_setup_s": 8.0,
+    "years_s": 1355.4
+   },
+   {
+    "name": "global",
+    "seconds": 1107.9,
+    "covariates_s": 437.8,
+    "calculation_setup_s": 8.0,
+    "years_s": 662.2
+   },
+   {
+    "name": "histclim",
+    "seconds": 2177.9,
+    "covariates_s": 665.2,
+    "calculation_setup_s": 7.0,
+    "years_s": 1505.7
+   },
+   {
+    "name": "noadapt-histclim",
+    "seconds": 1327.4,
+    "covariates_s": 663.2,
+    "calculation_setup_s": 9.0,
+    "years_s": 655.3
+   },
+   {
+    "name": "incadapt-histclim",
+    "seconds": 2004.7,
+    "covariates_s": 664.2,
+    "calculation_setup_s": 8.0,
+    "years_s": 1332.5
+   },
+   {
+    "name": "global-histclim",
+    "seconds": 1327.5,
+    "covariates_s": 664.3,
+    "calculation_setup_s": 8.0,
+    "years_s": 655.2
+   }
+  ],
+  "totals": {
+   "covariates_s": 4425.1,
+   "calculation_setup_s": 63.0,
+   "years_s": 8411.3,
+   "variants_s": 12899.2
+  },
+  "units": [
+   {
+    "unit": 1,
+    "name": "CCSM4",
+    "seconds": 12899.3,
+    "start_h": 0.056,
+    "rss_at_start_gb": 1.14,
+    "peak_rss_gb": 4.12,
+    "peak_cgroup_gb": 4.11
+   }
+  ],
+  "process_time_s": 12790.504334802,
+  "error": null
+ },
+ "sstat": {
+  "max_rss_gb": 4.06,
+  "ave_cpu": "03:36:02"
+ },
+ "sacct": {
+  "partition": "cil",
+  "alloc_cpus": 1,
+  "req_mem_gb": 12.0,
+  "max_rss_gb": null,
+  "elapsed": "03:38:34",
+  "elapsed_s": 13114.0,
+  "hours": 3.643,
+  "total_cpu_s": 0.0,
+  "cpu_efficiency": null,
+  "state": "RUNNING",
+  "exit_code": "0:0",
+  "nodelist": "midway3-0431",
+  "final": false,
+  "collected": "2026-11-20T05:53:32"
+ }
+}

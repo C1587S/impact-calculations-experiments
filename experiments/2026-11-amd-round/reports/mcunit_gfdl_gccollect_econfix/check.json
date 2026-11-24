@@ -1,0 +1,310 @@
+{
+ "candidate": "/scratch/midway3/cadavidsanchez/agri-profiling/mcunit_gfdl_gccollect_econfix/outputs",
+ "baseline": "mc3units_gccollect_econfix, job 63567891",
+ "rtol": 1e-05,
+ "atol": 1e-08,
+ "exact": false,
+ "status": "pass",
+ "files": [
+  {
+   "name": "batch0/rcp85/GFDL-ESM2M/high/SSP3/wheat_winter-280823-histclim.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "batch0/rcp85/GFDL-ESM2M/high/SSP3/wheat_winter-280823-incadapt.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "batch0/rcp85/GFDL-ESM2M/high/SSP3/wheat_winter-280823-noadapt.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "batch0/rcp85/GFDL-ESM2M/high/SSP3/wheat_winter-280823.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response22222222": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  }
+ ],
+ "missing_in_candidate": [
+  "batch0/rcp85/CCSM4/high/SSP3/wheat_winter-280823-histclim.nc4",
+  "batch0/rcp85/CCSM4/high/SSP3/wheat_winter-280823-incadapt.nc4",
+  "batch0/rcp85/CCSM4/high/SSP3/wheat_winter-280823-noadapt.nc4",
+  "batch0/rcp85/CCSM4/high/SSP3/wheat_winter-280823.nc4",
+  "batch0/rcp85/MIROC5/high/SSP3/wheat_winter-280823-histclim.nc4",
+  "batch0/rcp85/MIROC5/high/SSP3/wheat_winter-280823-incadapt.nc4",
+  "batch0/rcp85/MIROC5/high/SSP3/wheat_winter-280823-noadapt.nc4",
+  "batch0/rcp85/MIROC5/high/SSP3/wheat_winter-280823.nc4"
+ ],
+ "extra_in_candidate": [],
+ "matched_by": "path"
+}

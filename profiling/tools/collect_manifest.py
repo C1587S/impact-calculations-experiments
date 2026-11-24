@@ -149,6 +149,7 @@ def write(args):
     markers = telemetry.read_markers(os.path.join(run_dir, "markers.tsv"))
     stages = telemetry.build_stages(markers, args.end)
     summary = telemetry.stage_summary(stages)
+    summary["units"] = telemetry.unit_memory(stages, samples)
     files = output_files(args.outputs)
 
     with open(args.config) as fp:

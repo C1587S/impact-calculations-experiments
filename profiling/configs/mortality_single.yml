@@ -1,0 +1,34 @@
+# Profiling, mortality_single: the mortality single on master,
+# the reference for mortality_single_gccollect_econfix.
+# Copy of single/configs/mortality-single-ssp3-rcp85-high.yml (rcp85, CCSM4,
+# high, SSP3) in /project/cil/home_dirs/sarahmad/repos/mortality-projection-update/,
+# the config of job 59882812, task 7, with the socioeconomic folder of the
+# production mortality montecarlo (full/configs/generate/ there): the 1.0.0
+# panel instead of the old output-wpp folder. Named mortality_single because
+# mortality is the quick run.
+# Outputs go to scratch. The jobs pass
+# --outputdir=/scratch/midway3/$USER/agri-profiling/mortality_single/outputs
+# on the command line, so each user writes to their own scratch.
+module: tests.configs.mortality.allmodels
+mode: single
+singledir: ''
+outputdir: /scratch/midway3/cadavidsanchez/agri-profiling/mortality_single/outputs
+do_only: interpolation
+do_farmers: true
+do_historical: true
+only-rcp: rcp85
+only-models: [CCSM4]
+only-ssp: SSP3
+only-iam: high
+csvvfile: /project/cil/home_dirs/egrenier/repos/mortality/2_projection/2_run_projections/main_specification/Agespec_interaction_response.csvv
+specification: polynomial
+clipping: both
+clip-maxtemp: 30
+derivclip: true
+econcovar:
+   class: bartlett
+   length: 13
+climcovar:
+   class: bartlett
+   length: 30
+socioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/

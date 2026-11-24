@@ -1,0 +1,997 @@
+{
+ "candidate": "/scratch/midway3/cadavidsanchez/agri-profiling/mc3units_gccollect_econfix/outputs",
+ "baseline": "master, job 63567890",
+ "rtol": 1e-05,
+ "atol": 1e-08,
+ "exact": false,
+ "status": "fail",
+ "files": [
+  {
+   "name": "batch0/rcp85/CCSM4/high/SSP3/wheat_winter-280823-histclim.nc4",
+   "ok": false,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 12.11328125,
+     "max_rel_diff": 11714.759055573737
+    },
+    "response": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.001367121934890747,
+     "max_rel_diff": 90.05642946309545
+    },
+    "response2": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 6.996095180511475e-06,
+     "max_rel_diff": 1.3951579096092466
+    },
+    "response22": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 8.344650268554688e-06,
+     "max_rel_diff": 2.6216844185832016
+    },
+    "response222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.1844635009765625,
+     "max_rel_diff": 11424.200411053605
+    },
+    "response2222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 13.500732421875,
+     "max_rel_diff": 3439.954682399318
+    },
+    "response22222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.841339111328125,
+     "max_rel_diff": 4238.515094411254
+    },
+    "response222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 6.236763510969467e-05,
+     "max_rel_diff": 348035.3294677859
+    },
+    "response2222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.76837158203125e-07,
+     "max_rel_diff": 0.020978613963673932
+    },
+    "response22222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 3.904104232788086e-06,
+     "max_rel_diff": 0.0648134454592967
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "batch0/rcp85/CCSM4/high/SSP3/wheat_winter-280823-incadapt.nc4",
+   "ok": false,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 146.0673828125,
+     "max_rel_diff": 51891.62742774358
+    },
+    "response": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0014504529535770416,
+     "max_rel_diff": 90.56804911971858
+    },
+    "response2": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 7.778406143188477e-06,
+     "max_rel_diff": 11.049354232309689
+    },
+    "response22": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 9.059906005859375e-06,
+     "max_rel_diff": 2.7783069786114867
+    },
+    "response222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 44.82421875,
+     "max_rel_diff": 34501.85312700728
+    },
+    "response2222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 162.509765625,
+     "max_rel_diff": 4965.258224671274
+    },
+    "response22222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.56109619140625,
+     "max_rel_diff": 1302.668800063829
+    },
+    "response222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 6.625110290769953e-05,
+     "max_rel_diff": 4964.262012503852
+    },
+    "response2222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 5.066394805908203e-07,
+     "max_rel_diff": 0.2092912273889644
+    },
+    "response22222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.127621650695801e-06,
+     "max_rel_diff": 0.06489606858775333
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "batch0/rcp85/CCSM4/high/SSP3/wheat_winter-280823-noadapt.nc4",
+   "ok": false,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 146.0673828125,
+     "max_rel_diff": 51891.62742774358
+    },
+    "response": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0011041900143027306,
+     "max_rel_diff": 197.22487039972026
+    },
+    "response2": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 7.763504981994629e-06,
+     "max_rel_diff": 5.167492906179913
+    },
+    "response22": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 7.62939453125e-06,
+     "max_rel_diff": 2.7783069786114867
+    },
+    "response222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 44.82421875,
+     "max_rel_diff": 34501.85312700728
+    },
+    "response2222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 162.509765625,
+     "max_rel_diff": 11764.069948393262
+    },
+    "response22222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.56109619140625,
+     "max_rel_diff": 3042.5296391793404
+    },
+    "response222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 6.623660920013208e-05,
+     "max_rel_diff": 1602.2686219000932
+    },
+    "response2222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 5.066394805908203e-07,
+     "max_rel_diff": 0.0010739862869363263
+    },
+    "response22222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.1425228118896484e-06,
+     "max_rel_diff": 0.003987461416396155
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "batch0/rcp85/CCSM4/high/SSP3/wheat_winter-280823.nc4",
+   "ok": false,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 146.0673828125,
+     "max_rel_diff": 51891.62742774358
+    },
+    "response": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0018956661224365234,
+     "max_rel_diff": 174.61659530260872
+    },
+    "response2": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 9.08970832824707e-06,
+     "max_rel_diff": 9.206149995179862
+    },
+    "response22": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 8.58306884765625e-06,
+     "max_rel_diff": 2.7783069786114867
+    },
+    "response222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 44.82421875,
+     "max_rel_diff": 34501.85312700728
+    },
+    "response2222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 162.509765625,
+     "max_rel_diff": 4965.258224671274
+    },
+    "response22222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.56109619140625,
+     "max_rel_diff": 15917.414377546058
+    },
+    "response222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 9.810262054088525e-05,
+     "max_rel_diff": 256775.28612921986
+    },
+    "response2222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 5.960464477539062e-07,
+     "max_rel_diff": 6.385011058936518
+    },
+    "response22222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 5.811452865600586e-06,
+     "max_rel_diff": 0.09720504858696043
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "batch0/rcp85/GFDL-ESM2M/high/SSP3/wheat_winter-280823-histclim.nc4",
+   "ok": false,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 13.129638671875,
+     "max_rel_diff": 55491.08288156331
+    },
+    "response": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0019062161445617676,
+     "max_rel_diff": 911.2664008624431
+    },
+    "response2": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 7.137656211853027e-06,
+     "max_rel_diff": 10.649437145324729
+    },
+    "response22": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 8.58306884765625e-06,
+     "max_rel_diff": 5.485473728099462
+    },
+    "response222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 14.4573974609375,
+     "max_rel_diff": 10212.940410476012
+    },
+    "response2222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 1.877197265625,
+     "max_rel_diff": 331226.98513237404
+    },
+    "response22222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 2.4026031494140625,
+     "max_rel_diff": 1297.7434581552398
+    },
+    "response222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 7.937237387523055e-05,
+     "max_rel_diff": 896070.6614754302
+    },
+    "response2222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.76837158203125e-07,
+     "max_rel_diff": 0.04991737434750134
+    },
+    "response22222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 3.769993782043457e-06,
+     "max_rel_diff": 0.12487423697922118
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "batch0/rcp85/GFDL-ESM2M/high/SSP3/wheat_winter-280823-incadapt.nc4",
+   "ok": false,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 859.7734375,
+     "max_rel_diff": 6174.369108413838
+    },
+    "response": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0013850368559360504,
+     "max_rel_diff": 2505.5785952111423
+    },
+    "response2": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 7.957220077514648e-06,
+     "max_rel_diff": 1.9651362210940757
+    },
+    "response22": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 9.059906005859375e-06,
+     "max_rel_diff": 12.769765593137153
+    },
+    "response222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 14.4490966796875,
+     "max_rel_diff": 12391.998421626167
+    },
+    "response2222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 859.7734375,
+     "max_rel_diff": 7939.3506520006285
+    },
+    "response22222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 22.915771484375,
+     "max_rel_diff": 4575.121392485104
+    },
+    "response222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 7.226166053442284e-05,
+     "max_rel_diff": 4426.994063421252
+    },
+    "response2222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 5.364418029785156e-07,
+     "max_rel_diff": 0.29159028004635207
+    },
+    "response22222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.149973392486572e-06,
+     "max_rel_diff": 0.1855659721442375
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "batch0/rcp85/GFDL-ESM2M/high/SSP3/wheat_winter-280823-noadapt.nc4",
+   "ok": false,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 859.8203125,
+     "max_rel_diff": 111721.14974400375
+    },
+    "response": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.00112241692841053,
+     "max_rel_diff": 2505.5785952111423
+    },
+    "response2": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 7.947906851768494e-06,
+     "max_rel_diff": 5.2974899060643645
+    },
+    "response22": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 7.62939453125e-06,
+     "max_rel_diff": 2.6306524675367475
+    },
+    "response222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 14.4490966796875,
+     "max_rel_diff": 109910.98261440056
+    },
+    "response2222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 859.8203125,
+     "max_rel_diff": 6689.32301166622
+    },
+    "response22222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 22.915771484375,
+     "max_rel_diff": 2044.8667994511623
+    },
+    "response222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 7.225310218927916e-05,
+     "max_rel_diff": 3400.200652485826
+    },
+    "response2222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 5.364418029785156e-07,
+     "max_rel_diff": 0.024197591099991658
+    },
+    "response22222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.1425228118896484e-06,
+     "max_rel_diff": 0.0019263101026965716
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "batch0/rcp85/GFDL-ESM2M/high/SSP3/wheat_winter-280823.nc4",
+   "ok": false,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 803.109375,
+     "max_rel_diff": 36159.357526945925
+    },
+    "response": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.002049192786216736,
+     "max_rel_diff": 2505.5785952111423
+    },
+    "response2": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 8.493661880493164e-06,
+     "max_rel_diff": 6.07215769359664
+    },
+    "response22": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 8.821487426757812e-06,
+     "max_rel_diff": 2.021956195243015
+    },
+    "response222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 14.4490966796875,
+     "max_rel_diff": 4018.2557788023378
+    },
+    "response2222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 803.109375,
+     "max_rel_diff": 15584.185251752167
+    },
+    "response22222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 22.915771484375,
+     "max_rel_diff": 588.9124038356501
+    },
+    "response222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 8.828046338749118e-05,
+     "max_rel_diff": 5000974.249914685
+    },
+    "response2222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 5.960464477539062e-07,
+     "max_rel_diff": 0.09304025243031828
+    },
+    "response22222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 5.4389238357543945e-06,
+     "max_rel_diff": 0.06057604611613856
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "batch0/rcp85/MIROC5/high/SSP3/wheat_winter-280823-histclim.nc4",
+   "ok": false,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 45.55615234375,
+     "max_rel_diff": 21956.43478531702
+    },
+    "response": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.00136643648147583,
+     "max_rel_diff": 84.06197869435547
+    },
+    "response2": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 6.943941116333008e-06,
+     "max_rel_diff": 6.182575911571241
+    },
+    "response22": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 8.106231689453125e-06,
+     "max_rel_diff": 2.8208084214802547
+    },
+    "response222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 46.056640625,
+     "max_rel_diff": 4778.242486517501
+    },
+    "response2222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 6.58380126953125,
+     "max_rel_diff": 2763.9855300902473
+    },
+    "response22222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 24.43505859375,
+     "max_rel_diff": 11233.091985702275
+    },
+    "response222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 6.490840496553574e-05,
+     "max_rel_diff": 153684.0635848933
+    },
+    "response2222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.76837158203125e-07,
+     "max_rel_diff": 0.15933195992724086
+    },
+    "response22222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.2244791984558105e-06,
+     "max_rel_diff": 0.13965674224369792
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "batch0/rcp85/MIROC5/high/SSP3/wheat_winter-280823-incadapt.nc4",
+   "ok": false,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 41.1796875,
+     "max_rel_diff": 7148.01446479579
+    },
+    "response": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0013134479522705078,
+     "max_rel_diff": 742.809784605449
+    },
+    "response2": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 7.718801498413086e-06,
+     "max_rel_diff": 3.917908193035451
+    },
+    "response22": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 9.059906005859375e-06,
+     "max_rel_diff": 9.806549423418257
+    },
+    "response222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 46.35009765625,
+     "max_rel_diff": 17753.947714394213
+    },
+    "response2222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 41.25390625,
+     "max_rel_diff": 4967.307865102578
+    },
+    "response22222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 23.359130859375,
+     "max_rel_diff": 550.1303300884053
+    },
+    "response222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 6.76055842632195e-05,
+     "max_rel_diff": 742855.2203318635
+    },
+    "response2222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.76837158203125e-07,
+     "max_rel_diff": 0.059255394565297166
+    },
+    "response22222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.179775714874268e-06,
+     "max_rel_diff": 0.18288369282882858
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "batch0/rcp85/MIROC5/high/SSP3/wheat_winter-280823-noadapt.nc4",
+   "ok": false,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 41.1298828125,
+     "max_rel_diff": 17399.5732671404
+    },
+    "response": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0011276602745056152,
+     "max_rel_diff": 213.153339144604
+    },
+    "response2": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 7.718801498413086e-06,
+     "max_rel_diff": 5.544446966241332
+    },
+    "response22": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 7.62939453125e-06,
+     "max_rel_diff": 0.7421298652350387
+    },
+    "response222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 46.35009765625,
+     "max_rel_diff": 14664.164540599832
+    },
+    "response2222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 41.2041015625,
+     "max_rel_diff": 19590.540450331126
+    },
+    "response22222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 23.359130859375,
+     "max_rel_diff": 1979.9288874949323
+    },
+    "response222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 6.759890129615087e-05,
+     "max_rel_diff": 5422.7082178363835
+    },
+    "response2222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.76837158203125e-07,
+     "max_rel_diff": 0.0005898038218340057
+    },
+    "response22222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.172325134277344e-06,
+     "max_rel_diff": 0.016857841533979217
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "batch0/rcp85/MIROC5/high/SSP3/wheat_winter-280823.nc4",
+   "ok": false,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 41.939453125,
+     "max_rel_diff": 80973.22286512933
+    },
+    "response": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.001991167664527893,
+     "max_rel_diff": 1777.529960422756
+    },
+    "response2": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 1.0311603546142578e-05,
+     "max_rel_diff": 6.169991688206532
+    },
+    "response22": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 9.059906005859375e-06,
+     "max_rel_diff": 1.9307062417734757
+    },
+    "response222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 46.35009765625,
+     "max_rel_diff": 17800.44987180504
+    },
+    "response2222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 42.013671875,
+     "max_rel_diff": 12709.510527716619
+    },
+    "response22222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 23.359130859375,
+     "max_rel_diff": 13249.661264501501
+    },
+    "response222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.00010627620576997288,
+     "max_rel_diff": 65348.83238929525
+    },
+    "response2222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 7.748603820800781e-07,
+     "max_rel_diff": 0.03779592455546491
+    },
+    "response22222222": {
+     "ok": false,
+     "message": "Left and right DataArray objects are not close",
+     "nan_mismatch": 0,
+     "max_abs_diff": 6.4373016357421875e-06,
+     "max_rel_diff": 0.035473599558166286
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  }
+ ],
+ "missing_in_candidate": [],
+ "extra_in_candidate": [],
+ "matched_by": "path"
+}

@@ -1,0 +1,174 @@
+{
+ "run": "labor_gccollect_econfix",
+ "experiment": "labor_gccollect_econfix",
+ "quick": false,
+ "profiler": "gc",
+ "compare_to": "labor",
+ "allow_missing": null,
+ "check_exact": false,
+ "config": {
+  "path": "/project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/configs/labor_gccollect_econfix.yml",
+  "text": "# Profiling, labor_gccollect_econfix: Same as labor, on the\n# econmodel-memory branch of impact-calculations, with a full garbage collection\n# every minute.\n# Copy of labor/configs/single/ssp3-rcp85-high.yml (rcp85, CCSM4, high, SSP3)\n# in /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-labor/hpc-jobs/,\n# the config of job 60794948, task 9. configs/base/uninteracted_main_model.yml\n# is a copy of the labor model config in the same configs/ folder.\n# Outputs go to scratch. The jobs pass\n# --outputdir=/scratch/midway3/$USER/agri-profiling/labor_gccollect_econfix/outputs\n# on the command line, so each user writes to their own scratch.\nimport: \"base/uninteracted_main_model.yml\"\nmode: single\nsingledir: ''\noutputdir: /scratch/midway3/cadavidsanchez/agri-profiling/labor_gccollect_econfix/outputs\ndo_farmers: true\ndo_historical: true\nonly-rcp: rcp85\nonly-models: [CCSM4]\nonly-ssp: SSP3\nonly-iam: high\nsocioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/\n"
+ },
+ "command": "python /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/tools/gc_capture.py --interval 60 --log /scratch/midway3/cadavidsanchez/agri-profiling/labor_gccollect_econfix/gc.csv -m generate.generate /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/configs/labor_gccollect_econfix.yml --outputdir=/scratch/midway3/cadavidsanchez/agri-profiling/labor_gccollect_econfix/outputs",
+ "slurm": {
+  "job_id": "63567905",
+  "job_name": "agri-prof-labor_gccollect_econfix",
+  "job_partition": "amd",
+  "job_account": "cil",
+  "cpus_per_task": "1",
+  "mem_per_node": "65536",
+  "job_nodelist": "midway3-0505",
+  "submit_dir": "/project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs"
+ },
+ "cores": 1,
+ "mem_requested_gb": 64.0,
+ "node": {
+  "hostname": "midway3-0505.rcc.local",
+  "cpu_model": "AMD EPYC 7702 64-Core Processor",
+  "cpus_online": 128,
+  "kernel": "4.18.0-305.3.1.el8.x86_64"
+ },
+ "thread_env": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "NUMEXPR_NUM_THREADS": "1",
+  "NUMBA_NUM_THREADS": "1"
+ },
+ "impact_calculations": {
+  "path": "/project/cil/home_dirs/scadavidsanchez/repos/impact-calculations-econfix",
+  "branch": "econmodel-memory",
+  "sha": "61d2f28af62c52e8431a41c517b486ee23c1f1a2",
+  "short_sha": "61d2f28",
+  "changed_files": [
+   "adaptation/precomputed/new_econmodel.py"
+  ]
+ },
+ "python": "3.7.12",
+ "conda_env": "/project/cil/home_dirs/rcc/envs/impact-env",
+ "tools": {
+  "psutil": "7.2.2",
+  "memray": "1.17.2",
+  "pyinstrument": "4.6.2"
+ },
+ "start": "2026-11-20T04:15:31",
+ "end": "2026-11-20T06:20:02",
+ "wall_seconds": 7471.0,
+ "exit_status": 0,
+ "failed": false,
+ "error": null,
+ "outputs": {
+  "dir": "/scratch/midway3/cadavidsanchez/agri-profiling/labor_gccollect_econfix/outputs",
+  "count": 4,
+  "expected": 4,
+  "files": [
+   {
+    "name": "rcp85/CCSM4/high/SSP3/uninteracted_main_model_agnonag_27_28_41-histclim.nc4",
+    "bytes": 48462107
+   },
+   {
+    "name": "rcp85/CCSM4/high/SSP3/uninteracted_main_model_agnonag_27_28_41-incadapt.nc4",
+    "bytes": 48462069
+   },
+   {
+    "name": "rcp85/CCSM4/high/SSP3/uninteracted_main_model_agnonag_27_28_41-noadapt.nc4",
+    "bytes": 48461988
+   },
+   {
+    "name": "rcp85/CCSM4/high/SSP3/uninteracted_main_model_agnonag_27_28_41.nc4",
+    "bytes": 48462069
+   }
+  ]
+ },
+ "telemetry": {
+  "samples": 7464,
+  "seconds": 7471.9,
+  "peak_rss_gb": 8.06,
+  "peak_rss_at_s": 3642.3,
+  "peak_tree_rss_gb": 8.07,
+  "peak_cgroup_gb": 8.11,
+  "peak_cgroup_rss_gb": 8.02,
+  "cgroup_max_usage_gb": 8.11,
+  "mean_cpu_pct": 90.7,
+  "p95_cpu_pct": 97.9,
+  "read_gb": 274.3,
+  "read_disk_gb": 0.0,
+  "max_threads": 1
+ },
+ "stages": {
+  "startup": {
+   "economic models": 208.2,
+   "weather and claim": 2.0
+  },
+  "variants": [
+   {
+    "name": "fulladapt",
+    "seconds": 2052.4,
+    "covariates_s": 294.4,
+    "calculation_setup_s": 9.0,
+    "years_s": 1749.0
+   },
+   {
+    "name": "noadapt",
+    "seconds": 1346.6,
+    "covariates_s": 308.4,
+    "calculation_setup_s": 10.0,
+    "years_s": 1028.2
+   },
+   {
+    "name": "incadapt",
+    "seconds": 1834.2,
+    "covariates_s": 262.4,
+    "calculation_setup_s": 10.0,
+    "years_s": 1561.8
+   },
+   {
+    "name": "histclim",
+    "seconds": 2006.3,
+    "covariates_s": 270.3,
+    "calculation_setup_s": 11.0,
+    "years_s": 1725.0
+   }
+  ],
+  "totals": {
+   "covariates_s": 1135.5,
+   "calculation_setup_s": 40.0,
+   "years_s": 6064.0,
+   "variants_s": 7239.5
+  },
+  "units": [
+   {
+    "unit": 1,
+    "name": "CCSM4",
+    "seconds": 7239.6,
+    "start_h": 0.063,
+    "rss_at_start_gb": 1.03,
+    "peak_rss_gb": 8.06,
+    "peak_cgroup_gb": 8.11
+   }
+  ],
+  "process_time_s": 6770.715975106001,
+  "error": null
+ },
+ "sstat": {
+  "max_rss_gb": 7.35,
+  "ave_cpu": "01:56:47"
+ },
+ "sacct": {
+  "partition": "amd",
+  "alloc_cpus": 1,
+  "req_mem_gb": 64.0,
+  "max_rss_gb": null,
+  "elapsed": "02:04:53",
+  "elapsed_s": 7493.0,
+  "hours": 2.081,
+  "total_cpu_s": 0.0,
+  "cpu_efficiency": null,
+  "state": "RUNNING",
+  "exit_code": "0:0",
+  "nodelist": "midway3-0505",
+  "final": false,
+  "collected": "2026-11-20T06:20:19"
+ }
+}

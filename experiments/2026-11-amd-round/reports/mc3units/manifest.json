@@ -1,0 +1,280 @@
+{
+ "run": "mc3units",
+ "experiment": "mc3units",
+ "quick": false,
+ "profiler": "none",
+ "compare_to": null,
+ "allow_missing": null,
+ "check_exact": false,
+ "config": {
+  "path": "/project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/configs/mc3units.yml",
+  "text": "# Profiling, mc3units: three winter wheat montecarlo units in one process, on\n# master, the reference for mc3units_gccollect_econfix.\n# Batch 0, rcp85, SSP3, high, with CCSM4, GFDL-ESM2M and MIROC5 run one after\n# another in one process, as a production montecarlo worker does, with the settings of\n# montecarlo/wheat_winter-rcp85.yml, as mcunit.\n# The projection system shuffles the units, so their order may differ\n# between runs. seed-csvv is fixed to the draw of mcunit's pvals.yml, so every unit of both\n# versions uses the same coefficients. The histclim year order is a hash of\n# each unit's folder, so it matches between runs too.\n# Outputs go to scratch. The jobs pass\n# --outputdir=/scratch/midway3/$USER/agri-profiling/mc3units/outputs\n# on the command line, so each user writes to their own scratch.\nimport: \"../../configs/wheat_winter_pbarspline.yml\"\nmode: montecarlo\noutputdir: /scratch/midway3/cadavidsanchez/agri-profiling/mc3units/outputs\ntimeout: 12\ndo_farmers: true\ndo_historical: true\nonly-rcp: rcp85\nonly-models: [CCSM4, GFDL-ESM2M, MIROC5]\nonly-ssp: SSP3\nonly-iam: high\nonly-batch-number: 0\npvals:\n  wheat_winter-280823:\n    seed-csvv: 207090040328577895136399886809632106736\nsocioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/\n"
+ },
+ "command": "python -m generate.generate /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs/agriculture/profiling/configs/mc3units.yml --outputdir=/scratch/midway3/cadavidsanchez/agri-profiling/mc3units/outputs",
+ "slurm": {
+  "job_id": "63567890",
+  "job_name": "agri-prof-mc3units",
+  "job_partition": "amd",
+  "job_account": "cil",
+  "cpus_per_task": "1",
+  "mem_per_node": "32768",
+  "job_nodelist": "midway3-0524",
+  "submit_dir": "/project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/cil2-hpc-jobs-agriculture/hpc-jobs"
+ },
+ "cores": 1,
+ "mem_requested_gb": 32.0,
+ "node": {
+  "hostname": "midway3-0524.rcc.local",
+  "cpu_model": "AMD EPYC 7702 64-Core Processor",
+  "cpus_online": 128,
+  "kernel": "4.18.0-305.3.1.el8.x86_64"
+ },
+ "thread_env": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "NUMEXPR_NUM_THREADS": "1",
+  "NUMBA_NUM_THREADS": "1"
+ },
+ "impact_calculations": {
+  "path": "/project/cil/home_dirs/scadavidsanchez/repos/impact-calculations",
+  "branch": "master",
+  "sha": "ca9da178378ffbadcb149b9666ddd86c2faa7e02",
+  "short_sha": "ca9da17",
+  "changed_files": [
+   "adaptation/precomputed/new_econmodel.py"
+  ]
+ },
+ "python": "3.7.12",
+ "conda_env": "/project/cil/home_dirs/rcc/envs/impact-env",
+ "tools": {
+  "psutil": "7.2.2",
+  "memray": "1.17.2",
+  "pyinstrument": "4.6.2"
+ },
+ "start": "2026-11-20T01:57:16",
+ "end": "2026-11-21T01:32:46",
+ "wall_seconds": 84930.4,
+ "exit_status": 0,
+ "failed": false,
+ "error": null,
+ "outputs": {
+  "dir": "/scratch/midway3/cadavidsanchez/agri-profiling/mc3units/outputs",
+  "count": 12,
+  "expected": 12,
+  "files": [
+   {
+    "name": "batch0/rcp85/CCSM4/high/SSP3/wheat_winter-280823-histclim.nc4",
+    "bytes": 116771389
+   },
+   {
+    "name": "batch0/rcp85/CCSM4/high/SSP3/wheat_winter-280823-incadapt.nc4",
+    "bytes": 116771389
+   },
+   {
+    "name": "batch0/rcp85/CCSM4/high/SSP3/wheat_winter-280823-noadapt.nc4",
+    "bytes": 116771351
+   },
+   {
+    "name": "batch0/rcp85/CCSM4/high/SSP3/wheat_winter-280823.nc4",
+    "bytes": 116771389
+   },
+   {
+    "name": "batch0/rcp85/GFDL-ESM2M/high/SSP3/wheat_winter-280823-histclim.nc4",
+    "bytes": 116771389
+   },
+   {
+    "name": "batch0/rcp85/GFDL-ESM2M/high/SSP3/wheat_winter-280823-incadapt.nc4",
+    "bytes": 116771389
+   },
+   {
+    "name": "batch0/rcp85/GFDL-ESM2M/high/SSP3/wheat_winter-280823-noadapt.nc4",
+    "bytes": 116771351
+   },
+   {
+    "name": "batch0/rcp85/GFDL-ESM2M/high/SSP3/wheat_winter-280823.nc4",
+    "bytes": 116771389
+   },
+   {
+    "name": "batch0/rcp85/MIROC5/high/SSP3/wheat_winter-280823-histclim.nc4",
+    "bytes": 116771389
+   },
+   {
+    "name": "batch0/rcp85/MIROC5/high/SSP3/wheat_winter-280823-incadapt.nc4",
+    "bytes": 116771389
+   },
+   {
+    "name": "batch0/rcp85/MIROC5/high/SSP3/wheat_winter-280823-noadapt.nc4",
+    "bytes": 116771351
+   },
+   {
+    "name": "batch0/rcp85/MIROC5/high/SSP3/wheat_winter-280823.nc4",
+    "bytes": 116771389
+   }
+  ]
+ },
+ "telemetry": {
+  "samples": 84800,
+  "seconds": 84931.1,
+  "peak_rss_gb": 25.27,
+  "peak_rss_at_s": 41338.8,
+  "peak_tree_rss_gb": 25.28,
+  "peak_cgroup_gb": 25.35,
+  "peak_cgroup_rss_gb": 25.23,
+  "cgroup_max_usage_gb": 25.43,
+  "mean_cpu_pct": 94.2,
+  "p95_cpu_pct": 97.9,
+  "read_gb": 568.6,
+  "read_disk_gb": 0.0,
+  "max_threads": 1
+ },
+ "stages": {
+  "startup": {
+   "economic models": 270.4,
+   "weather and claim": 9.0
+  },
+  "variants": [
+   {
+    "name": "fulladapt",
+    "seconds": 7818.8,
+    "covariates_s": 725.9,
+    "calculation_setup_s": 11.0,
+    "years_s": 7081.9
+   },
+   {
+    "name": "noadapt",
+    "seconds": 3623.2,
+    "covariates_s": 684.8,
+    "calculation_setup_s": 14.0,
+    "years_s": 2924.4
+   },
+   {
+    "name": "incadapt",
+    "seconds": 8112.5,
+    "covariates_s": 716.9,
+    "calculation_setup_s": 13.0,
+    "years_s": 7382.6
+   },
+   {
+    "name": "histclim",
+    "seconds": 8755.3,
+    "covariates_s": 1256.1,
+    "calculation_setup_s": 16.0,
+    "years_s": 7483.2
+   },
+   {
+    "name": "fulladapt",
+    "seconds": 8247.9,
+    "covariates_s": 769.8,
+    "calculation_setup_s": 18.0,
+    "years_s": 7460.0
+   },
+   {
+    "name": "noadapt",
+    "seconds": 3829.2,
+    "covariates_s": 762.4,
+    "calculation_setup_s": 16.0,
+    "years_s": 3050.8
+   },
+   {
+    "name": "incadapt",
+    "seconds": 7918.0,
+    "covariates_s": 774.7,
+    "calculation_setup_s": 13.0,
+    "years_s": 7130.3
+   },
+   {
+    "name": "histclim",
+    "seconds": 8582.5,
+    "covariates_s": 1234.4,
+    "calculation_setup_s": 14.0,
+    "years_s": 7334.1
+   },
+   {
+    "name": "fulladapt",
+    "seconds": 8003.0,
+    "covariates_s": 741.3,
+    "calculation_setup_s": 14.0,
+    "years_s": 7247.7
+   },
+   {
+    "name": "noadapt",
+    "seconds": 3743.5,
+    "covariates_s": 726.0,
+    "calculation_setup_s": 15.0,
+    "years_s": 3002.4
+   },
+   {
+    "name": "incadapt",
+    "seconds": 7704.4,
+    "covariates_s": 750.4,
+    "calculation_setup_s": 14.0,
+    "years_s": 6940.0
+   },
+   {
+    "name": "histclim",
+    "seconds": 8295.5,
+    "covariates_s": 1177.4,
+    "calculation_setup_s": 12.1,
+    "years_s": 7105.9
+   }
+  ],
+  "totals": {
+   "covariates_s": 10320.1,
+   "calculation_setup_s": 170.1,
+   "years_s": 74143.3,
+   "variants_s": 84633.8
+  },
+  "units": [
+   {
+    "unit": 1,
+    "name": "CCSM4",
+    "seconds": 28309.8,
+    "start_h": 0.079,
+    "rss_at_start_gb": 9.98,
+    "peak_rss_gb": 24.37,
+    "peak_cgroup_gb": 24.45
+   },
+   {
+    "unit": 2,
+    "name": "GFDL-ESM2M",
+    "seconds": 28577.6,
+    "start_h": 7.943,
+    "rss_at_start_gb": 19.94,
+    "peak_rss_gb": 25.27,
+    "peak_cgroup_gb": 25.35
+   },
+   {
+    "unit": 3,
+    "name": "MIROC5",
+    "seconds": 27746.3,
+    "start_h": 15.881,
+    "rss_at_start_gb": 21.85,
+    "peak_rss_gb": 22.07,
+    "peak_cgroup_gb": 22.15
+   }
+  ],
+  "process_time_s": 79958.47340364801,
+  "error": null
+ },
+ "sstat": {
+  "max_rss_gb": 25.14,
+  "ave_cpu": "23:01:30"
+ },
+ "sacct": {
+  "partition": "amd",
+  "alloc_cpus": 1,
+  "req_mem_gb": 32.0,
+  "max_rss_gb": null,
+  "elapsed": "23:36:09",
+  "elapsed_s": 84969.0,
+  "hours": 23.602,
+  "total_cpu_s": 0.0,
+  "cpu_efficiency": null,
+  "state": "RUNNING",
+  "exit_code": "0:0",
+  "nodelist": "midway3-0524",
+  "final": false,
+  "collected": "2026-11-21T01:33:09"
+ }
+}

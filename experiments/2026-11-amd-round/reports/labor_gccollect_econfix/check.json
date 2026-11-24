@@ -1,0 +1,157 @@
+{
+ "candidate": "/scratch/midway3/cadavidsanchez/agri-profiling/labor_gccollect_econfix/outputs",
+ "baseline": "/project/cil/gcp/outputs_newsocioeconomics/labor/single/rcp85/CCSM4/high/SSP3",
+ "rtol": 1e-05,
+ "atol": 1e-08,
+ "exact": false,
+ "status": "pass",
+ "files": [
+  {
+   "name": "uninteracted_main_model_agnonag_27_28_41-histclim.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "highriskimpacts": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "clip": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "lowriskimpacts": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "uninteracted_main_model_agnonag_27_28_41-incadapt.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "highriskimpacts": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "clip": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "lowriskimpacts": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "uninteracted_main_model_agnonag_27_28_41-noadapt.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "highriskimpacts": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "clip": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "lowriskimpacts": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "uninteracted_main_model_agnonag_27_28_41.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "highriskimpacts": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "clip": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "lowriskimpacts": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  }
+ ],
+ "missing_in_candidate": [],
+ "extra_in_candidate": [],
+ "matched_by": "name"
+}

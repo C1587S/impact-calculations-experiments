@@ -1,0 +1,20 @@
+# Profiling, periodicgc: the winter wheat single on the econmodel-memory branch
+# with gc-interval: 60, a full garbage collection every minute from the code
+# (generate/periodic_gc.py), with no wrapper. Same run as gccollect_econfix.
+# Copy of single/wheat_winter-ssp3-rcp85-high.yml (rcp85, CCSM4, high, SSP3).
+# Outputs go to scratch. The jobs pass
+# --outputdir=/scratch/midway3/$USER/agri-profiling/periodicgc/outputs
+# on the command line, so each user writes to their own scratch.
+# The kit on Midway imports ../../configs/wheat_winter_pbarspline.yml
+# (hpc-jobs/agriculture/configs/), copied here to configs/base/.
+import: "base/wheat_winter_pbarspline.yml"
+mode: single
+outputdir: /scratch/midway3/cadavidsanchez/agri-profiling/periodicgc/outputs
+do_farmers: 'always'
+do_historical: true
+only-rcp: rcp85
+only-models: [CCSM4]
+only-ssp: SSP3
+only-iam: high
+socioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/
+gc-interval: 60

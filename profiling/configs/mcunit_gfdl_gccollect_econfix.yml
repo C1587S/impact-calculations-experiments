@@ -1,0 +1,26 @@
+# Profiling, mcunit_gfdl_gccollect_econfix: the GFDL-ESM2M unit of mc3units_gccollect_econfix
+# run alone, on the econmodel-memory branch of impact-calculations, with a full
+# garbage collection every minute. Batch 0, rcp85, SSP3, high, with the
+# settings of montecarlo/wheat_winter-rcp85.yml and the seed-csvv of
+# mc3units_gccollect_econfix, so its coefficients and histclim year order
+# match that unit.
+# Outputs go to scratch. The jobs pass
+# --outputdir=/scratch/midway3/$USER/agri-profiling/mcunit_gfdl_gccollect_econfix/outputs
+# on the command line, so each user writes to their own scratch.
+# The kit on Midway imports ../../configs/wheat_winter_pbarspline.yml
+# (hpc-jobs/agriculture/configs/), copied here to configs/base/.
+import: "base/wheat_winter_pbarspline.yml"
+mode: montecarlo
+outputdir: /scratch/midway3/cadavidsanchez/agri-profiling/mcunit_gfdl_gccollect_econfix/outputs
+timeout: 12
+do_farmers: true
+do_historical: true
+only-rcp: rcp85
+only-models: [GFDL-ESM2M]
+only-ssp: SSP3
+only-iam: high
+only-batch-number: 0
+pvals:
+  wheat_winter-280823:
+    seed-csvv: 207090040328577895136399886809632106736
+socioeconomic_data_dir: /project/cil/gcp/outputs_newsocioeconomics/socioeconomics/1.0.0/

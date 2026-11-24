@@ -1,0 +1,253 @@
+{
+ "candidate": "/scratch/midway3/cadavidsanchez/agri-profiling/corn_gccollect_econfix/outputs",
+ "baseline": "/project/cil/gcp/outputs_newsocioeconomics/agriculture/corn/single/rcp85/CCSM4/high/SSP3",
+ "rtol": 1e-05,
+ "atol": 1e-08,
+ "exact": false,
+ "status": "pass",
+ "files": [
+  {
+   "name": "corn-160221-global-histclim.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "corn-160221-global.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "corn-160221-histclim.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 2.9802322387695312e-08,
+     "max_rel_diff": 2.8670517977346563e-07
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 2.9802322387695312e-08,
+     "max_rel_diff": 6.245855484520054e-08
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "corn-160221-incadapt-histclim.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 4.656612873077393e-10,
+     "max_rel_diff": 8.374262541504939e-08
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "corn-160221-incadapt.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 1.862645149230957e-09,
+     "max_rel_diff": 9.996450260512492e-08
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "corn-160221-noadapt-histclim.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "corn-160221-noadapt.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "corn-160221.nc4",
+   "ok": true,
+   "vars": {
+    "regions": {
+     "ok": true
+    },
+    "rebased": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "response2": {
+     "ok": true,
+     "nan_mismatch": 0,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0
+    },
+    "orderofoperations": {
+     "ok": true
+    }
+   }
+  }
+ ],
+ "missing_in_candidate": [],
+ "extra_in_candidate": [],
+ "matched_by": "name"
+}

@@ -16,6 +16,7 @@ import telemetry  # noqa: E402
 
 PID = 1
 STAGE_TID = 1
+UNIT_TID = 2
 
 
 def buckets(n, max_points):
@@ -77,6 +78,17 @@ def build_trace(run_dir, name, max_points):
         events.append(dict(ph="i", s="t", name=label, pid=PID, tid=STAGE_TID, ts=round((t - t0) * 1e6)))
     for t, year in stages["years"]:
         counter(events, "year", t, t0, dict(year=year))
+    # One slice per unit on its own track, so a run with several units in one
+    # process shows where each starts, with its memory at the start and peaks.
+    units = telemetry.unit_memory(stages, samples)
+    if units:
+        events.append(dict(ph="M", pid=PID, tid=UNIT_TID, name="thread_name", args=dict(name="units")))
+    for u, s in zip(units, stages["units"]):
+        args = {k: u[k] for k in ("rss_at_start_gb", "peak_rss_gb", "peak_cgroup_gb") if u[k] is not None}
+        args["hours"] = round(u["seconds"] / 3600.0, 2)
+        events.append(dict(ph="X", name="unit %d: %s" % (u["unit"], u["name"]), cat="unit", pid=PID,
+                           tid=UNIT_TID, ts=round((s["start"] - t0) * 1e6), dur=round(u["seconds"] * 1e6),
+                           args=args))
 
     core_keys = [k for k in (samples[0].keys() if samples else []) if k.startswith("core_")]
     prev = samples[0] if samples else None
@@ -132,7 +144,7 @@ def build_trace(run_dir, name, max_points):
             counter(events, "thread CPU %", ts[0], t0, vals)
 
     return dict(traceEvents=events, displayTimeUnit="ms",
-                metadata=dict(run=name, start_epoch=t0, stage_summary=telemetry.stage_summary(stages)))
+                metadata=dict(run=name, start_epoch=t0, stage_summary=telemetry.stage_summary(stages), units=units))
 
 
 def main():

@@ -1,7 +1,9 @@
 # Shared body of the profiling jobs. Each <experiment>.sbatch sets EXP, and
 # optionally PROFILER (pyinstrument, memray or gc), COMPARE_TO, ALLOW_MISSING,
-# CHECK_EXACT=1 (outputs must equal the reference) and PVALS_FROM, then
-# sources this file. Submit from hpc-jobs/.
+# CHECK_EXACT=1 (outputs must equal the reference), PVALS_FROM, GC_INTERVAL,
+# GC_FREEZE=1 (gc.freeze() when the first variant starts) and EXPECTED_FILES
+# (when the count from do_farmers is wrong, as for mortality's age groups),
+# then sources this file. Submit from hpc-jobs/.
 # QUICK=1 (sbatch --export=ALL,QUICK=1 ...) runs the quick config instead.
 # A job writes none of its files under /project: outputs, results, the Slurm
 # logs and the projection's own log all go to scratch.
@@ -75,14 +77,17 @@ SSP=$(sed -n 's/^only-ssp: *//p' "$CONFIG")
 IAM=$(sed -n 's/^only-iam: *//p' "$CONFIG")
 RCP=$(sed -n 's/^only-rcp: *//p' "$CONFIG")
 
-# Files a complete run writes: full adaptation and histclim, plus each farmer.
-FARMERS=$(sed -n 's/^do_farmers: *//p' "$CONFIG")
-case "$FARMERS" in
-    "'always'") EXPECTED_FILES=8 ;;
-    true) EXPECTED_FILES=4 ;;
-    \[*) EXPECTED_FILES=$(( 3 + $(printf '%s' "$FARMERS" | tr -cd ',' | wc -c) )) ;;
-    *) EXPECTED_FILES=1 ;;  # unknown (mortality): at least one
-esac
+# Files a complete run writes: full adaptation and histclim, plus each farmer,
+# unless the job sets EXPECTED_FILES itself.
+if [ -z "${EXPECTED_FILES:-}" ]; then
+    FARMERS=$(sed -n 's/^do_farmers: *//p' "$CONFIG")
+    case "$FARMERS" in
+        "'always'") EXPECTED_FILES=8 ;;
+        true) EXPECTED_FILES=4 ;;
+        \[*) EXPECTED_FILES=$(( 3 + $(printf '%s' "$FARMERS" | tr -cd ',' | wc -c) )) ;;
+        *) EXPECTED_FILES=1 ;;  # unknown (mortality): at least one
+    esac
+fi
 
 # Experiments whose config points at agri-profiling/econ/ get a folder with
 # only the CSV of their scenario, so one economic model is loaded, not ten.
@@ -137,9 +142,11 @@ case "$PROFILER" in
         ;;
     gc)
         # A full garbage collection every GC_INTERVAL seconds, in the
-        # projection's main thread. Each pass is a row of gc.csv.
-        CMD=(python "$KIT/tools/gc_capture.py" --interval "${GC_INTERVAL:-60}" --log "$RUN_DIR/gc.csv"
-             -m generate.generate "${ARGS[@]}")
+        # projection's main thread. Each pass is a row of gc.csv. GC_FREEZE=1
+        # freezes the objects alive when the first variant starts.
+        GC_OPTS=(--interval "${GC_INTERVAL:-60}" --log "$RUN_DIR/gc.csv")
+        [ "${GC_FREEZE:-0}" = "1" ] && GC_OPTS+=(--freeze-at-first-variant)
+        CMD=(python "$KIT/tools/gc_capture.py" "${GC_OPTS[@]}" -m generate.generate "${ARGS[@]}")
         ;;
     *)
         echo "ERROR: unknown PROFILER $PROFILER" >&2

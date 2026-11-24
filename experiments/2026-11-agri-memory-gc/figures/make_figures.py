@@ -1,16 +1,21 @@
 """Figures for the 2026-11-agri-memory-gc experiment.
 
-Usage: python3 make_figures.py
+Usage: python3 make_figures.py [memory_timeline] [peak_memory] [memory_timeline_mcunit]
 
 Writes memory_timeline.png (singles), memory_timeline_mcunit.png (montecarlo
-units) and peak_memory.png next to this script, 1600 px wide on white. The gc
+units) and peak_memory.png next to this script, or only the ones named, 1600 px
+wide on white. memory_timeline_mcunit.png is drawn in the style of the amd round
+notebook (profiling/notebooks/utils.py). The gc
 runs come from reports/ here, baseline, econfix, mcunit and mcunit_econfix from
 the full-run experiment's reports/. The timelines use the hours of baseline or
 mcunit on cil, and each stage of the other runs is stretched to its length there.
 """
 
+import importlib.util
 import json
 import os
+import sys
+from pathlib import Path
 
 import matplotlib
 
@@ -23,6 +28,10 @@ HERE = os.path.join(os.path.dirname(OUT), "reports")
 FULL = os.path.join(os.path.dirname(os.path.dirname(OUT)), "2026-11-agri-memory-full", "reports")
 
 WIDTH_IN, DPI = 8.0, 200
+_spec = importlib.util.spec_from_file_location(
+    "notebook_utils", Path(OUT).parents[2] / "profiling" / "notebooks" / "utils.py")
+notebook = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(notebook)
 
 TEXT = "#0b0b0b"
 TEXT_2 = "#52514e"
@@ -168,11 +177,28 @@ def peaks(data):
     save(fig, "peak_memory.png")
 
 
+def units_timeline():
+    """Process memory of the three montecarlo units over the run, on mcunit's stages."""
+    plt.rcdefaults()  # drop this script's own colors and fonts
+    chosen = []
+    for run in UNITS:
+        folder = Path(RUNS[run][2]) / run
+        chosen.append(notebook.load_run(folder, json.loads((folder / "manifest.json").read_text())))
+    fig = notebook.versions_over_run(chosen, series="process", ylabel="Process memory (GiB)")
+    fig.savefig(os.path.join(OUT, "memory_timeline_mcunit.png"), dpi=DPI)
+
+
 def main():
-    data = {run: load_run(run) for run in RUNS}
-    timeline(data, SINGLES, "baseline", "memory_timeline.png", 2)
-    timeline(data, UNITS, "mcunit", "memory_timeline_mcunit.png", 1)
-    peaks(data)
+    chosen = sys.argv[1:] or ["memory_timeline", "peak_memory", "memory_timeline_mcunit"]
+    if {"memory_timeline", "peak_memory"} & set(chosen):
+        data = {run: load_run(run) for run in RUNS}
+        if "memory_timeline" in chosen:
+            timeline(data, SINGLES, "baseline", "memory_timeline.png", 2)
+        if "peak_memory" in chosen:
+            peaks(data)
+    # Last, as the notebook style changes matplotlib's settings
+    if "memory_timeline_mcunit" in chosen:
+        units_timeline()
 
 
 if __name__ == "__main__":

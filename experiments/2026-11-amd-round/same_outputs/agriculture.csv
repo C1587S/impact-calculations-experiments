@@ -1,0 +1,57 @@
+name,file,largest absolute difference
+wheat winter,wheat_winter-280823-global-histclim.nc4,0.0
+wheat winter,wheat_winter-280823-global.nc4,9.313225746154785e-10
+wheat winter,wheat_winter-280823-histclim.nc4,7.450580596923828e-09
+wheat winter,wheat_winter-280823-incadapt-histclim.nc4,5.820766091346741e-11
+wheat winter,wheat_winter-280823-incadapt.nc4,1.862645149230957e-09
+wheat winter,wheat_winter-280823-noadapt-histclim.nc4,0.0
+wheat winter,wheat_winter-280823-noadapt.nc4,1.862645149230957e-09
+wheat winter,wheat_winter-280823.nc4,1.862645149230957e-09
+cassava,cassava-110221-global-histclim.nc4,0.0
+cassava,cassava-110221-global.nc4,0.0
+cassava,cassava-110221-histclim.nc4,0.0
+cassava,cassava-110221-incadapt-histclim.nc4,0.0
+cassava,cassava-110221-incadapt.nc4,2.2351741790771484e-08
+cassava,cassava-110221-noadapt-histclim.nc4,0.0
+cassava,cassava-110221-noadapt.nc4,2.2737367544323206e-13
+cassava,cassava-110221.nc4,2.2737367544323206e-13
+corn,corn-160221-global-histclim.nc4,0.0
+corn,corn-160221-global.nc4,0.0
+corn,corn-160221-histclim.nc4,2.9802322387695312e-08
+corn,corn-160221-incadapt-histclim.nc4,4.656612873077393e-10
+corn,corn-160221-incadapt.nc4,1.862645149230957e-09
+corn,corn-160221-noadapt-histclim.nc4,0.0
+corn,corn-160221-noadapt.nc4,0.0
+corn,corn-160221.nc4,0.0
+rice,rice-160221-global-histclim.nc4,0.0
+rice,rice-160221-global.nc4,0.0
+rice,rice-160221-histclim.nc4,0.0
+rice,rice-160221-incadapt-histclim.nc4,0.0
+rice,rice-160221-incadapt.nc4,5.820766091346741e-11
+rice,rice-160221-noadapt-histclim.nc4,0.0
+rice,rice-160221-noadapt.nc4,0.0
+rice,rice-160221.nc4,2.842170943040401e-14
+sorghum,sorghum-160221-global-histclim.nc4,0.0
+sorghum,sorghum-160221-global.nc4,0.0
+sorghum,sorghum-160221-histclim.nc4,0.0
+sorghum,sorghum-160221-incadapt-histclim.nc4,1.8189894035458565e-12
+sorghum,sorghum-160221-incadapt.nc4,0.0
+sorghum,sorghum-160221-noadapt-histclim.nc4,0.0
+sorghum,sorghum-160221-noadapt.nc4,0.0
+sorghum,sorghum-160221.nc4,0.0
+soy,soy-160221-global-histclim.nc4,0.0
+soy,soy-160221-global.nc4,0.0
+soy,soy-160221-histclim.nc4,0.0
+soy,soy-160221-incadapt-histclim.nc4,0.0
+soy,soy-160221-incadapt.nc4,1.4551915228366852e-11
+soy,soy-160221-noadapt-histclim.nc4,0.0
+soy,soy-160221-noadapt.nc4,0.0
+soy,soy-160221.nc4,5.820766091346741e-11
+wheat spring,wheat_spring-280823-global-histclim.nc4,0.0
+wheat spring,wheat_spring-280823-global.nc4,9.313225746154785e-10
+wheat spring,wheat_spring-280823-histclim.nc4,1.1641532182693481e-10
+wheat spring,wheat_spring-280823-incadapt-histclim.nc4,2.842170943040401e-14
+wheat spring,wheat_spring-280823-incadapt.nc4,2.9103830456733704e-11
+wheat spring,wheat_spring-280823-noadapt-histclim.nc4,0.0
+wheat spring,wheat_spring-280823-noadapt.nc4,1.8189894035458565e-12
+wheat spring,wheat_spring-280823.nc4,2.2737367544323206e-13

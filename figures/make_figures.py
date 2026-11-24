@@ -1,13 +1,18 @@
 """Figures for the Summary of the root README, in the dashboard's figure style.
 
-Usage: python3 figures/make_figures.py
+Usage: python3 figures/make_figures.py [peak_memory] [memory_singles] [memory_annotated] [units]
 
 Writes peak_memory.png, memory_singles.png and memory_annotated.png next to
-this script, from the runs under experiments/*/reports/, loaded with
-dashboard/utils.py. Over the run, hours are those of baseline on cil, and each
-stage of the other runs is stretched to its length in baseline.
+this script, or only the ones named, from the runs under experiments/*/reports/.
+memory_singles.png is drawn in the style of the amd round notebook
+(profiling/notebooks/utils.py), the other two with dashboard/utils.py. units
+redraws units.png of the amd round with the notebook's units figure. Over the
+run, hours are those of baseline on cil, and each stage of the other runs is
+stretched to its length in baseline.
 """
 
+import importlib.util
+import json
 import os
 import sys
 from pathlib import Path
@@ -20,6 +25,9 @@ sys.path.insert(0, str(REPO / "dashboard"))
 import utils  # noqa: E402
 
 OUT = Path(__file__).resolve().parent
+_spec = importlib.util.spec_from_file_location("notebook_utils", REPO / "profiling" / "notebooks" / "utils.py")
+notebook = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(notebook)
 NAMES = {"master": "master", "branch": "lazy economic model", "master + gc": "master + gc every minute",
          "branch + gc": "lazy economic model + gc every minute"}
 SINGLES = ["baseline", "econfix", "gccollect", "gccollect_econfix"]
@@ -46,23 +54,25 @@ def peaks(runs):
     print("wrote peak_memory.png")
 
 
-def singles(runs):
-    """Job memory of the four full singles over the run, on baseline's clock."""
-    chosen = [runs[n] for n in SINGLES]
-    ref = runs["baseline"]
-    position = utils.stage_axis(ref)
-    fig, (ax,) = utils.figure(height=2.8)
-    for r in chosen:
-        values = r["series"]["cgroup"].dropna()
-        ax.plot(position(r, values.index.to_numpy()), values.to_numpy(), color=utils.COLORS[r["version"]],
-                label="%s (%s)" % (r["name"], NAMES[r["version"]]))
-    utils.stage_names(ax, ref)
-    ax.set_ylim(0, None)
-    ax.set_xlabel(utils.time_label(ref))
-    ax.set_ylabel("Job memory, cgroup (GiB)")
-    fig.legend(loc="outside upper left", ncols=2)
-    fig.savefig(OUT / "memory_singles.png", dpi=200)
+def singles():
+    """Job memory of the four full singles over the run, on baseline's stages."""
+    chosen = []
+    for name in SINGLES:
+        folder = next(REPO.glob("experiments/*/reports/%s/manifest.json" % name)).parent
+        chosen.append(notebook.load_run(folder, json.loads((folder / "manifest.json").read_text())))
+    notebook.versions_over_run(chosen).savefig(OUT / "memory_singles.png", dpi=200)
     print("wrote memory_singles.png")
+
+
+def units():
+    """Three units in one job, winter wheat and labor, written to the amd round's figures."""
+    runs = {}
+    for _, *names in notebook.UNITS_FIGURE:
+        for name in names:
+            folder = next(REPO.glob("experiments/*/reports/%s/manifest.json" % name)).parent
+            runs[name] = notebook.load_run(folder, json.loads((folder / "manifest.json").read_text()))
+    notebook.units_figure(runs).savefig(REPO / "experiments" / "2026-11-amd-round" / "figures" / "units.png", dpi=150)
+    print("wrote units.png")
 
 
 def annotated(runs):
@@ -105,10 +115,17 @@ def annotated(runs):
 
 
 def main():
-    runs = {r["name"]: r for r in utils.load_runs(REPO / "dashboard")}
-    peaks(runs)
-    singles(runs)
-    annotated(runs)
+    chosen = sys.argv[1:] or ["peak_memory", "memory_singles", "memory_annotated", "units"]
+    if "memory_singles" in chosen:
+        singles()
+    if "units" in chosen:
+        units()
+    if {"peak_memory", "memory_annotated"} & set(chosen):
+        runs = {r["name"]: r for r in utils.load_runs(REPO / "dashboard")}
+        if "peak_memory" in chosen:
+            peaks(runs)
+        if "memory_annotated" in chosen:
+            annotated(runs)
 
 
 if __name__ == "__main__":

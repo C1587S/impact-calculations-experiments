@@ -6,11 +6,17 @@ Usage, from the repo root:
 The sacct file holds every job since Nov 1, written on a login node with
     sacct -u $USER -S 2026-11-01 -P --delimiter=, \
         --format=JobID,JobName,Partition,Account,AllocCPUS,ReqMem,Elapsed,CPUTime,TotalCPU,MaxRSS,State,ExitCode,Submit,Start,End,NodeList \
-        > /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/checks/agriculture/profiling-full/sacct_all.csv
+        > /project/cil/home_dirs/scadavidsanchez/projects/socioeconomics-update/checks/agriculture/profiling-amd/sacct_all.csv
 
 Each job is matched to its report in experiments/*/reports/<run>/ by the job id
 in manifest.json. Peaks come from trace.json, the output check from check.json
 and the collections from gc.csv. A cell is empty when its source is missing.
+A master run with no check is a reference, and a run waiting for its check is pending.
+A run whose job is not in the sacct export yet gets its row from manifest.json, with
+the sacct cells empty until the next export.
+The commit is the one on econmodel-memory that holds the code a run used: d642a03
+for master (ca9da17 with the additional SSPs as a local change) and e033e7b for
+the lazy econ model.
 """
 
 import argparse
@@ -40,7 +46,16 @@ NO_MANIFEST = {
     "63433860": ("mcunit-quick", "2026-11-agri-memory-full"),
     "63433861": ("mcunit_econfix-quick", "2026-11-agri-memory-full"),
     "63480993": ("gccollect-quick", "2026-11-agri-memory-gc"),
+    "63584471": ("check_reference", "2026-11-amd-round"),
+    "63588783": ("same_outputs", "2026-11-amd-round"),
+    "63591383": ("same_outputs", "2026-11-amd-round"),
 }
+# Jobs of a round with no report here yet (still running, or not copied), by job id range
+ROUNDS = [(63567890, 63747307, "2026-11-amd-round")]
+# Every run had the additional SSPs as a local change, and econfix-quick and
+# mortality_econfix-quick had the lazy econ model uncommitted on ca9da17
+SAME_CODE = {("master", "ca9da17"): "d642a03", ("econmodel-memory", "ca9da17"): "e033e7b",
+             ("econmodel-memory", "61d2f28"): "e033e7b"}
 GIB = {"": 1 / 1024 ** 3, "K": 1 / 1024 ** 2, "M": 1 / 1024, "G": 1.0, "T": 1024.0}
 
 
@@ -82,6 +97,13 @@ def trace_peaks(path):
     return peaks["projection_rss"], peaks["cgroup_total"]
 
 
+def commit(manifest):
+    """Short commit of the code a run used, as listed in SAME_CODE, or empty with no manifest."""
+    code = (manifest or {}).get("impact_calculations") or {}
+    sha = code.get("short_sha", "")
+    return SAME_CODE.get((code.get("branch"), sha), sha)
+
+
 def output_check(check, montecarlo):
     """pass, fail, or seed differs (expected) when only histclim differs in a montecarlo
     unit, whose year order depends on the draws it reused. As in the dashboard."""
@@ -112,6 +134,17 @@ def main():
             manifest = json.loads((folder / "manifest.json").read_text())
             manifests[str(manifest["slurm"]["job_id"])] = (folder, manifest)
     cpu_by_node = {m["node"]["hostname"].split(".")[0]: m["node"]["cpu_model"] for _, m in manifests.values()}
+    exported = {job["JobID"] for job in jobs}
+    for job_id, (_, manifest) in manifests.items():
+        if job_id not in exported:
+            slurm = manifest["slurm"]
+            mem = manifest.get("mem_requested_gb")
+            jobs.append({"JobID": job_id, "JobName": slurm.get("job_name", ""),
+                         "Partition": slurm.get("job_partition", ""), "NodeList": slurm.get("job_nodelist", ""),
+                         "AllocCPUS": str(manifest.get("cores") or ""), "ReqMem": "%gG" % mem if mem else "",
+                         "State": "", "ExitCode": "", "Submit": "", "Start": "", "End": "", "Elapsed": "",
+                         "TotalCPU": ""})
+    jobs.sort(key=lambda r: int(r["JobID"]))
 
     table = []
     for job in jobs:
@@ -125,7 +158,8 @@ def main():
             if folder is not None and (folder / "manifest.json").exists():
                 folder = None
         else:  # not copied here yet: the next rebuild after copying fills it in
-            run, experiment = job["JobName"][len(PREFIX):], ""
+            run = job["JobName"][len(PREFIX):]
+            experiment = next((name for first, last, name in ROUNDS if first <= int(job_id) <= last), "")
 
         node = "" if job["NodeList"] in ("", "None assigned") else job["NodeList"]
         cores = int(job["AllocCPUS"] or 0)
@@ -138,8 +172,9 @@ def main():
         if folder is not None and (folder / "check.json").exists():
             montecarlo = re.search(r"^mode:\s*montecarlo", ((manifest or {}).get("config") or {}).get("text", ""), re.M)
             check = output_check(json.loads((folder / "check.json").read_text()), bool(montecarlo))
-        elif manifest:
-            check = "none"
+        elif manifest:  # reference for master runs, pending while a check waits for its pair
+            branch = (manifest.get("impact_calculations") or {}).get("branch")
+            check = "reference" if branch == "master" else "pending" if manifest.get("compare_to") else "none"
         collections = minutes = None
         if folder is not None and (folder / "gc.csv").exists():
             with (folder / "gc.csv").open(newline="") as f:
@@ -156,7 +191,7 @@ def main():
             "cpu_h": number(seconds(job["TotalCPU"]) / 3600 if started and finished else None, "%.2f"),
             "peak_process_gib": number(process, "%.1f"), "peak_cgroup_gib": number(cgroup, "%.1f"),
             "sacct_maxrss_gib": number(gib(batch.get(job_id, {}).get("MaxRSS")), "%.1f"),
-            "impact_calculations_commit": ((manifest or {}).get("impact_calculations") or {}).get("short_sha", ""),
+            "impact_calculations_commit": commit(manifest),
             "output_check": check or "", "gc_collections": number(collections, "%d"),
             "gc_minutes": number(minutes, "%.1f"),
         })

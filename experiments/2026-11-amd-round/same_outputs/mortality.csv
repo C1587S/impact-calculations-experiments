@@ -1,0 +1,17 @@
+name,file,largest absolute difference
+mortality,Agespec_interaction_response-combined-histclim.nc4,3.637978807091713e-12
+mortality,Agespec_interaction_response-combined-incadapt.nc4,1.4551915228366852e-11
+mortality,Agespec_interaction_response-combined-noadapt.nc4,0.0
+mortality,Agespec_interaction_response-combined.nc4,0.0
+mortality,Agespec_interaction_response-older-histclim.nc4,5.960464477539063e-08
+mortality,Agespec_interaction_response-older-incadapt.nc4,2.9802322387695312e-08
+mortality,Agespec_interaction_response-older-noadapt.nc4,2.3283064365386963e-10
+mortality,Agespec_interaction_response-older.nc4,2.9802322387695312e-08
+mortality,Agespec_interaction_response-oldest-histclim.nc4,1.1920928955078125e-07
+mortality,Agespec_interaction_response-oldest-incadapt.nc4,4.656612873077393e-10
+mortality,Agespec_interaction_response-oldest-noadapt.nc4,4.656612873077393e-10
+mortality,Agespec_interaction_response-oldest.nc4,1.4901161193847656e-08
+mortality,Agespec_interaction_response-young-histclim.nc4,1.4901161193847656e-08
+mortality,Agespec_interaction_response-young-incadapt.nc4,1.1368683772161603e-13
+mortality,Agespec_interaction_response-young-noadapt.nc4,5.960464477539063e-08
+mortality,Agespec_interaction_response-young.nc4,1.1368683772161603e-13
